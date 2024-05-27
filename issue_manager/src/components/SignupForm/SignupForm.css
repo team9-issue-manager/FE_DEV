@@ -4,7 +4,7 @@
 }
 
 .wrapper1{
-    width: 545px;
+    width: 391px;
     height: 492px;
     background:#BEA18D;
     color: #000;
@@ -31,14 +31,12 @@
 }
 
 .wrapper2{
-    width: 391px;
+    width: 545px;
     height: 492px;
     background: #FFF;;
     color: black;
-    padding-top: 33px;
-    padding-left: 51.5px;
-    padding-right: 51.5px;
-
+    padding: 95px;
+    
 }
 
 .wrapper2 img{
@@ -47,10 +45,11 @@
 
 .wrapper2 .input-box{
     position: relative;
-    width: 288px;
+    width: 355px;
     height: 43px;
     background: #F4F1EB;
-    margin-bottom: 21px;
+    margin-bottom: 24px;
+    color: #828288;
 
 }
 
@@ -71,9 +70,18 @@
 
 .wrapper2 button{
     border-radius: 0;
-    width: 288px;
+    width: 355px;
     height: 63px;
     flex-shrink: 0;
     background:#BEA18D;
     color: black;
+}
+
+.wrapper2 .dropdownbox{
+    position: relative;
+    width: 355px;
+    height: 43px;
+    background: #F4F1EB;
+    margin-bottom: 24px;
+    color: #828288;
 }

@@ -1,11 +1,12 @@
 import React from 'react';
-import Login from './components/Login';
-import LoginForm from './components/LoginForm/LoginForm';
+import SignupForm from './components/SignupForm/SignupForm';
+// import LoginForm from './components/LoginForm/LoginForm';
 
 const App: React.FC = () => {
   return (
     <div>
-      <LoginForm></LoginForm>
+      <SignupForm></SignupForm>
+      {/* <LoginForm></LoginForm> */}
     </div>
   );
 }
