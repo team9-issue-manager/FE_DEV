@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './PageFormat.css';
-
+import CreateIssue from '../CreateIssue/CreateIssue.tsx'
+import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
+import SearchBox from '../SearchBox/SearchBox.tsx'
 
 import { VscGraph } from "react-icons/vsc";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -16,7 +18,7 @@ import { CiMap } from "react-icons/ci";
 
 const PageFormat = () => {
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState('A');
+    const [currentComponent, setCurrentComponent] = useState('0');
 
     const toggleSdaArrow = () => {
         setIsSdaExpanded(!isSdaExpanded);
@@ -25,15 +27,20 @@ const PageFormat = () => {
     const renderComponent = () => {
         switch (currentComponent) {
             case 'A':
-                return <span>New Issue</span>;
+                return <CreateIssue />;
             case 'B':
-                return <span>Search</span>;
+                return (
+                    <>
+                        <SearchBox />
+                        <DisplayIssueList />
+                    </>
+                );
             case 'C':
                 return <span>Inbox</span>;
             case 'D':
-                return <span>My Issue</span>;
+                return <DisplayIssueList />;
             default:
-                return <span>New Issue</span>;
+                return <span>Welcome</span>;
         }
     }
 
