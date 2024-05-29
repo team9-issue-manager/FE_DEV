@@ -79,9 +79,9 @@ const SignupForm = () => {
               buttonText="Role"
               content={
                 <>
-                  <DropdownItem>pl</DropdownItem>
-                  <DropdownItem>tester</DropdownItem>
-                  <DropdownItem>dev</DropdownItem>
+                  <DropdownItem onClick={() => handleItemClick('pl')}>pl</DropdownItem>
+                  <DropdownItem onClick={() => handleItemClick('tester')}>tester</DropdownItem>
+                  <DropdownItem onClick={() => handleItemClick('dev')}>dev</DropdownItem>
                 </>
               }
               onSelect={handleItemClick}

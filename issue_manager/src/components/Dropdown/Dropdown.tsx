@@ -52,7 +52,7 @@ const Dropdown: React.FC<DropdownProps> = ({ buttonText, content, onSelect, sele
   return (
     <div ref={dropdownRef} className="dropdown">
       <DropdownButton ref={buttonRef} toggle={toggleDropdown} open={open}>
-        {selectedItem || buttonText}
+        {selectedItem ? selectedItem : buttonText} {/* 선택된 항목이 없으면 "Role" 표시 */}
       </DropdownButton>
       <DropdownContent top={dropdownTop} ref={contentRef} open={open}>
         {React.Children.map(content, (child) =>
