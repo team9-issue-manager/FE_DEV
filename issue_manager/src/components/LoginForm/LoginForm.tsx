@@ -1,8 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './LoginForm.css';
 import logo_img from '../Assets/logo.png';
 
-const LoginForm = () => {
+interface LoginFormProps {
+    apiUrl: string; // 백엔드 API 주소
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ apiUrl }) => {
+    const [id, setId] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const data = {
+            id,
+            password
+        };
+
+        try {
+            const response = await fetch(apiUrl + '/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                console.log('Login successful');
+                // 로그인이 성공하면 어떤 동작을 수행할지 여기에 작성합니다.
+            } else {
+                console.error('Login failed');
+                // 로그인이 실패하면 어떤 동작을 수행할지 여기에 작성합니다.
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // 네트워크 또는 기타 오류가 발생하면 여기에 작성합니다.
+        }
+    };
+
     return (
         <div className='wrapper0'>
             <div className='wrapper1'>
@@ -14,13 +51,25 @@ const LoginForm = () => {
                 </form>
             </div>
             <div className='wrapper2'>
-                <form action="">
-                    <img src={logo_img} width="282px" height="192px"></img>
+                <form onSubmit={handleSubmit}>
+                    <img src={logo_img} alt="Logo" width="282px" height="192px" />
                     <div className="input-box">
-                        <input type="id" placeholder='ID' required />
+                        <input
+                            type="text"
+                            placeholder='ID'
+                            value={id}
+                            onChange={(e) => setId(e.target.value)}
+                            required
+                        />
                     </div>
                     <div className="input-box">
-                        <input type="password" placeholder='PW' required />
+                        <input
+                            type="password"
+                            placeholder='PW'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
                     </div>
                     <button type="submit">Login</button>
                 </form>
