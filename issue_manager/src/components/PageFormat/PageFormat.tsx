@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './PageFormat.css';
-import CreateIssue from '../CreateIssue/CreateIssue.tsx'
 import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
 import SearchBox from '../SearchBox/SearchBox.tsx'
 
@@ -27,7 +26,7 @@ const PageFormat = () => {
     const renderComponent = () => {
         switch (currentComponent) {
             case 'A':
-                return <CreateIssue />;
+                return ;
             case 'B':
                 return (
                     <>
@@ -36,11 +35,11 @@ const PageFormat = () => {
                     </>
                 );
             case 'C':
-                return <span>Inbox</span>;
+                return ;
             case 'D':
                 return <DisplayIssueList />;
             default:
-                return <span>Welcome</span>;
+                return ;
         }
     }
 
@@ -109,14 +108,6 @@ const PageFormat = () => {
                         <span className='buttonLabel'>Notify</span>
                     </div>
                 </button>
-            </div>
-            <div className='topBanner'>
-                <div id='menuName'>
-                    menu name
-                </div>
-                <div>
-                    additional buttons
-                </div>
             </div>
             <div className='main'>
                 {renderComponent()}

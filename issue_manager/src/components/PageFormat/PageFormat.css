@@ -1,7 +1,3 @@
-.page {
-
-}
-
 .sideMenu {
     position: fixed;
     left: 0;
@@ -13,22 +9,11 @@
     overflow-x: hidden;
 }
 
-.topBanner {
-    position: fixed;
-    top: 0;
-    left: 224px;
-    height: 56px;
-    width: 100%;
-    background-color: #F4F1EB;
-    display: flex;
-    align-items: center;
-}
-
 .main {
     position: fixed;
-    top: 56px;
+    top: 0px;
     left: 224px;
-    height: calc(100% - 56px);
+    height: 100%;
     width: calc(100% - 224px);
     background-color: black;
 }
