@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
 import logo_img from '../Assets/logo.png';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import '../PageFormat/PageFormat'
 import { useNavigate } from 'react-router-dom';
 
-
-
-interface LoginFormProps {
-    apiUrl: string; // 백엔드 API 주소
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({}) => {
+const LoginForm: React.FC= () => {
     const [id, setId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능 사용

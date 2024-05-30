@@ -22,8 +22,6 @@ const PageFormat = () => {
     const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
     const [ModalisOpen,setModalIsOpen]=useState(false);
-    const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능 사용
-
 
 
     const toggleSdaArrow = () => {

@@ -23,7 +23,7 @@ const SignupForm = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/issueFind/', { //여기에 회원가입 url 삽입
+      const response = await fetch('http://localhost:8080/user/find', { //여기에 회원가입 url 삽입
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
