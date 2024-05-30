@@ -6,7 +6,7 @@ const SearchBox = () => {
     return (
         <div className='searchBox'>
             <GoSearch />
-            <span>Search</span>
+            <input type='text' placeholder='Search' />
         </div>
     )
 }

@@ -2,7 +2,9 @@ import './PageDefault.css';
 
 const PageDefault = () => {
     return (
-        <span>Default</span>
+        <div className='topBanner'>
+                <span className='bannerName'>Default</span>
+            </div>
     );
 }
 

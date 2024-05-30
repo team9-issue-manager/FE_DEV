@@ -1,0 +1,23 @@
+.topBanner {
+    width: 100%;
+    height: 56px;
+    background: #F4F1EB;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.bannerName {
+    height: 29px;
+    color: #BEA18D;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    padding-left: 15px;
+}
+
+.topBanner button {
+    border-radius: 10px;
+    border: 1px solid #E0E0E0;
+    background: #BEA18D;
+}
