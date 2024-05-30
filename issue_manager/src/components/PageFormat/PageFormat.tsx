@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './PageFormat.css';
-import PageDefault from '../PageDefault/PageDefault.tsx'
+]import PageDefault from '../PageDefault/PageDefault.tsx'
 import PageSearch from '../PageSearch/PageSearch.tsx'
 import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx'
+
+import ModalPopup from '../Modal/Modal';
 
 import { VscGraph } from "react-icons/vsc";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -20,6 +22,8 @@ const PageFormat = () => {
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
     const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
+    const[ModalisOpen,setModalIsOpen]=useState(false);
+
 
     const toggleSdaArrow = () => {
         setIsSdaExpanded(!isSdaExpanded);
@@ -61,8 +65,8 @@ const PageFormat = () => {
                         <IoIosArrowForward />
                     </div>
                 </button>
-                <button id='newIssueButton'>
-                    <div className='buttonContent'>
+                 <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
+                     <div className='buttonContent'>
                         <PiListPlusFill />
                         <span id='newIssueLabel'>New Issue</span>
                     </div>

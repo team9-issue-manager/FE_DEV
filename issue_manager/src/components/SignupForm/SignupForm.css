@@ -67,6 +67,43 @@
 
 }
 
+/* Dropdown 바 스타일 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    background: #BEA18D;
+}
+  
+  /* Dropdown 콘텐츠 스타일 */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    min-width: 160px;
+    z-index: 1;
+    color: black;
+}
+  
+/* 드롭다운 콘텐츠가 열렸을 때 */
+.dropdown.open .dropdown-content {
+    display: block;
+    color: #828288;
+}
+  
+  /* 드롭다운 아이템 스타일 */
+.dropdown-item {
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+  
+.dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
 .wrapper2 button{
     border-radius: 0;
     width: 355px;
@@ -76,12 +113,7 @@
     color: black;
 }
 
-.wrapper2 .dropdownbox{
-    position: relative;
-    width: 355px;
-    height: 43px;
-    background: #F4F1EB;
-    margin-bottom: 24px;
-    color: #828288;
-    border: none;
+.role-select{
+    background: #BEA18D;
 }
+
