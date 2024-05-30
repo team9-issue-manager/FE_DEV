@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import './PageFormat.css';
-import PageDefault from '../PageDefault/PageDefault.tsx'
-import PageSearch from '../PageSearch/PageSearch.tsx'
-import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx'
-
+import PageDefault from '../PageDefault/PageDefault.tsx';
+import PageSearch from '../PageSearch/PageSearch.tsx';
+import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx';
 import ModalPopup from '../Modal/Modal';
 
 import { VscGraph } from "react-icons/vsc";
@@ -23,6 +22,8 @@ const PageFormat = () => {
     const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
     const [ModalisOpen,setModalIsOpen]=useState(false);
+    const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능 사용
+
 
 
     const toggleSdaArrow = () => {
@@ -124,6 +125,7 @@ const PageFormat = () => {
             <div className='main'>
                 {renderComponent()}
             </div>
+            <ModalPopup isOpen={ModalisOpen} closeModal={() => setModalIsOpen(false)} />
         </div>
     );
 };

@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
 import logo_img from '../Assets/logo.png';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import '../PageFormat/PageFormat'
+import { useNavigate } from 'react-router-dom';
+
+
 
 interface LoginFormProps {
     apiUrl: string; // 백엔드 API 주소
@@ -9,6 +14,7 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ apiUrl }) => {
     const [id, setId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능 사용
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -29,6 +35,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ apiUrl }) => {
 
             if (response.ok) {
                 console.log('Login successful');
+                navigate('/pageformat');
                 // 로그인이 성공하면 어떤 동작을 수행할지 여기에 작성합니다.
             } else {
                 console.error('Login failed');

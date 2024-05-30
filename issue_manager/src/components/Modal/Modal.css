@@ -1,0 +1,21 @@
+.ModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent; /* 반투명 배경 제거 */
+}
+
+.ModalContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #F4F1EB; /* 투명도 제거 */
+    padding: 20px;
+    border-radius: 20px;
+    outline: none;
+    width: 819px;
+    height: 475px;
+}
