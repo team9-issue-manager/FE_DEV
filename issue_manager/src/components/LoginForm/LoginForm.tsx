@@ -11,7 +11,7 @@ interface LoginFormProps {
     apiUrl: string; // 백엔드 API 주소
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ apiUrl }) => {
+const LoginForm: React.FC<LoginFormProps> = ({}) => {
     const [id, setId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능 사용
@@ -25,7 +25,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ apiUrl }) => {
         };
 
         try {
-            const response = await fetch(apiUrl + '/api/login', {
+            const response = await fetch('http://localhost:8080/user/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
