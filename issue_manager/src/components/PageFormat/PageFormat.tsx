@@ -22,7 +22,7 @@ const PageFormat = () => {
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
     const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
-    const[ModalisOpen,setModalIsOpen]=useState(false);
+    const [ModalisOpen,setModalIsOpen]=useState(false);
 
 
     const toggleSdaArrow = () => {
@@ -66,7 +66,7 @@ const PageFormat = () => {
                     </div>
                 </button>
                  <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
-                     <div className='buttonContent'>
+                     <div>
                         <PiListPlusFill />
                         <span id='newIssueLabel'>New Issue</span>
                     </div>
