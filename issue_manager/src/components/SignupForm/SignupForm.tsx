@@ -8,10 +8,12 @@ const SignupForm = () => {
   const [password, setPassword] = useState<string>('');
   const [role, setRole] = useState<string>('');
 
+
   const handleItemClick = (item: string) => {
     setRole(item);
     console.log(`${item} clicked`);
   };
+
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -47,7 +49,7 @@ const SignupForm = () => {
         <form action=''>
           <p>Already have an account?</p>
           <div className='register-link'>
-            <p><a href="#">Log in</a></p>
+            <p><a href="#">Log in</a></p> {/* 클릭 시 로그인 페이지로 이동 */}
           </div>
         </form>
       </div>

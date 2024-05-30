@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
 import logo_img from '../Assets/logo.png';
-import '../PageFormat/PageFormat'
 import { useNavigate } from 'react-router-dom';
+
 
 const LoginForm: React.FC= () => {
     const [id, setId] = useState<string>('');
@@ -18,7 +18,7 @@ const LoginForm: React.FC= () => {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/user/add', {
+            const response = await fetch('http://localhost:8080/user/find', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ const LoginForm: React.FC= () => {
 
             if (response.ok) {
                 console.log('Login successful');
-                navigate('/pageformat');
+                navigate('/PageFormat');
                 // 로그인이 성공하면 어떤 동작을 수행할지 여기에 작성합니다.
             } else {
                 console.error('Login failed');
@@ -39,6 +39,7 @@ const LoginForm: React.FC= () => {
             // 네트워크 또는 기타 오류가 발생하면 여기에 작성합니다.
         }
     };
+    
 
     return (
         <div className='wrapper0'>
@@ -46,7 +47,7 @@ const LoginForm: React.FC= () => {
                 <form action=''>
                     <p>Don't have an account?</p>
                     <div className='register-link'>
-                        <p><a href="#">Register</a></p>
+                    <p><a href="#">Register</a></p> {/* 클릭 시 로그인 페이지로 이동 */}
                     </div>
                 </form>
             </div>
