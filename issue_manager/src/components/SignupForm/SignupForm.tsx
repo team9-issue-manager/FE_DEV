@@ -23,7 +23,7 @@ const SignupForm = () => {
     };
 
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/api/signup', { //여기에 회원가입 url 삽입
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,14 +33,11 @@ const SignupForm = () => {
 
       if (response.ok) {
         console.log('Signup successful');
-        // Handle successful signup
       } else {
         console.error('Signup failed');
-        // Handle failed signup
       }
     } catch (error) {
       console.error('Error:', error);
-      // Handle network or other errors
     }
   };
 
@@ -78,11 +75,11 @@ const SignupForm = () => {
             <Dropdown
               buttonText="Role"
               content={
-                <>
+                <div>
                   <DropdownItem onClick={() => handleItemClick('pl')}>pl</DropdownItem>
                   <DropdownItem onClick={() => handleItemClick('tester')}>tester</DropdownItem>
                   <DropdownItem onClick={() => handleItemClick('dev')}>dev</DropdownItem>
-                </>
+                </div>
               }
               onSelect={handleItemClick}
               selectedItem={role}
