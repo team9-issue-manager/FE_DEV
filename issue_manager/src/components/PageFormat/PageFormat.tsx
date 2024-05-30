@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './PageFormat.css';
-]import PageDefault from '../PageDefault/PageDefault.tsx'
+import PageDefault from '../PageDefault/PageDefault.tsx'
 import PageSearch from '../PageSearch/PageSearch.tsx'
 import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx'
 
