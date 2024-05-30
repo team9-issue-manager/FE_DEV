@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './PageFormat.css';
-import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
-import SearchBox from '../SearchBox/SearchBox.tsx'
+import PageDefault from '../PageDefault/PageDefault.tsx'
+import PageSearch from '../PageSearch/PageSearch.tsx'
+import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx'
 
 import { VscGraph } from "react-icons/vsc";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -17,29 +18,36 @@ import { CiMap } from "react-icons/ci";
 
 const PageFormat = () => {
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState('0');
+    const [currentComponent, setCurrentComponent] = useState(' ');
+    const [activeButton, setActiveButton] = useState(' ');
 
     const toggleSdaArrow = () => {
         setIsSdaExpanded(!isSdaExpanded);
     };
 
+    const handleButtonClick = (component: string, buttonId: string) => {
+        setCurrentComponent(component);
+        setActiveButton(buttonId);
+    };
+
     const renderComponent = () => {
         switch (currentComponent) {
-            case 'A':
-                return ;
-            case 'B':
-                return (
-                    <>
-                        <SearchBox />
-                        <DisplayIssueList />
-                    </>
-                );
-            case 'C':
-                return ;
-            case 'D':
-                return <DisplayIssueList />;
+            case 'search':
+                return <PageSearch />;
+            case 'inbox':
+                return <span>inbox</span>;
+            case 'myIssue':
+                return <PageMyIssue />;
+            case 'roadMap':
+                return <span>roadMap</span>;
+            case 'statistics':
+                return <span>statistics</span>;
+            case 'ranking':
+                return <span>ranking</span>;
+            case 'notify':
+                return <span>notify</span>;
             default:
-                return ;
+                return <PageDefault />;
         }
     }
 
@@ -47,65 +55,65 @@ const PageFormat = () => {
         <div className='page'>
             <div className='sideMenu'>
                 <button>
-                    <div className='buttonUsernameContent'>
+                    <div id='buttonUsernameContent'>
                         <FaRegUser />
-                        <span id='userName'>User Name</span>
+                        <span>User Name</span>
                         <IoIosArrowForward />
                     </div>
                 </button>
-                <button onClick={() => setCurrentComponent('A')}>
+                <button id='newIssueButton'>
                     <div className='buttonContent'>
                         <PiListPlusFill />
-                        <span className='buttonLabel'>New Issue</span>
+                        <span id='newIssueLabel'>New Issue</span>
                     </div>
                 </button>
-                <button onClick={() => setCurrentComponent('B')}>
+                <button id={activeButton === 'search' ? 'active' : ' '} onClick={() => handleButtonClick('search', 'search')}>
                     <div className='buttonContent'>
                         <GoSearch />
-                        <span className='buttonLabel'>Search</span>
+                        <span>Search</span>
                     </div>
                 </button>
-                <button onClick={() => setCurrentComponent('C')}>
+                <button id={activeButton === 'inbox' ? 'active' : ' '} onClick={() => handleButtonClick('inbox', 'inbox')}>
                     <div className='buttonContent'>
                         <RiInbox2Fill />
-                        <span className='buttonLabel'>Inbox</span>
+                        <span>Inbox</span>
                     </div>
                 </button>
-                <button onClick={() => setCurrentComponent('D')}>
+                <button id={activeButton === 'myIssue' ? 'active' : ' '} onClick={() => handleButtonClick('myIssue', 'myIssue')}>
                     <div className='buttonContent'>
                         <VscIssues />
-                        <span className='buttonLabel'>My Issue</span>
+                        <span>My Issue</span>
                     </div>
                 </button>
-                <button>
+                <button id={activeButton === 'roadMap' ? 'active' : ' '} onClick={() => handleButtonClick('roadMap', 'roadMap')}>
                     <div className='buttonContent'>
                         <CiMap />
-                        <span className='buttonLabel'>Road Map...</span>
+                        <span>Road Map...</span>
                     </div>
                 </button>
                 <p id='yourTeam'>Your Team</p>
-                <button onClick={toggleSdaArrow}>
+                <button id={isSdaExpanded ? 'active' : ' '} onClick={toggleSdaArrow}>
                     <div className='buttonContent'>
                         <span id='arrow'>{isSdaExpanded ? <BiSolidDownArrow /> : <BiSolidUpArrow />}</span>
-                        <span className='buttonLabel'>SDA</span>
+                        <span>SDA</span>
                     </div>
                 </button>
-                <button>
+                <button id={activeButton === 'statistics' ? 'active' : ' '} onClick={() => handleButtonClick('statistics', 'statistics')}>
                     <div className='buttonContent'>
                         <VscGraph />
-                        <span className='buttonLabel'>Statistics</span>
+                        <span>Statistics</span>
                     </div>
                 </button>
-                <button>
+                <button id={activeButton === 'ranking' ? 'active' : ' '} onClick={() => handleButtonClick('ranking', 'ranking')}>
                     <div className='buttonContent'>
                         <MdOutlineStars />
-                        <span className='buttonLabel'>Ranking</span>
+                        <span>Ranking</span>
                     </div>
                 </button>
-                <button>
+                <button id={activeButton === 'notify' ? 'active' : ' '} onClick={() => handleButtonClick('notify', 'notify')}>
                     <div className='buttonContent'>
                         <IoMdNotificationsOutline />
-                        <span className='buttonLabel'>Notify</span>
+                        <span>Notify</span>
                     </div>
                 </button>
             </div>
