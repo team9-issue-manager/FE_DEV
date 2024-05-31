@@ -5,11 +5,12 @@ export type Issue = {
     issueNum: number;
     title: string;
     content: string;
-    devId: string;
-    projectId: number;
-    projectTitle: string;
-    state: number;
     date: string;
+    state: number;
+    accountId: string;
+    devId: string | null;
+    projectNum: number;
+    tag: string[] | null;
 }
 
 type IssueListElementProps = {
@@ -21,8 +22,8 @@ const IssueListElement: React.FC<IssueListElementProps> = ({ issue, onIssueClick
     return (
         <div>
             <button className='containerIssueListElement' onClick={() => onIssueClick(issue)}>
-                <span className='projectTitle'>{issue.projectTitle}</span>
-                <span className='devId'>{issue.devId}</span>
+                <span className='projectTitle'>{issue.projectNum}</span>
+                <span className='userId'>{issue.accountId}</span>
                 <span className='state'>{issue.state}</span>
                 <span className='title'>{issue.title}</span>
                 <span className='date'>{issue.date}</span>

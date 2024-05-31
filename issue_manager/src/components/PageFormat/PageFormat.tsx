@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './PageFormat.css';
 import PageDefault from '../PageDefault/PageDefault.tsx'
 import PageSearch from '../PageSearch/PageSearch.tsx'
 import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx'
 
-import ModalPopup from '../Modal/Modal';
+// import ModalPopup from '../Modal/Modal';
 
 import { VscGraph } from "react-icons/vsc";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -13,7 +13,7 @@ import { GoSearch } from "react-icons/go";
 import { RiInbox2Fill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { VscIssues } from "react-icons/vsc";
-import { PiListPlusFill } from "react-icons/pi";
+// import { PiListPlusFill } from "react-icons/pi";
 import { IoIosArrowForward } from "react-icons/io";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import { CiMap } from "react-icons/ci";
@@ -22,7 +22,7 @@ const PageFormat = () => {
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
     const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
-    const [ModalisOpen,setModalIsOpen]=useState(false);
+    // const [ModalisOpen,setModalIsOpen]=useState(false);
 
 
     const toggleSdaArrow = () => {
@@ -65,12 +65,12 @@ const PageFormat = () => {
                         <IoIosArrowForward />
                     </div>
                 </button>
-                 <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
+                 {/* <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
                      <div>
                         <PiListPlusFill />
                         <span id='newIssueLabel'>New Issue</span>
                     </div>
-                </button>
+                </button> */}
                 <button id={activeButton === 'search' ? 'active' : ' '} onClick={() => handleButtonClick('search', 'search')}>
                     <div className='buttonContent'>
                         <GoSearch />

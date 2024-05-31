@@ -19,15 +19,15 @@
 }
 
 .projectTitle {
-    width: 100px;
+    width: 60px;
 }
 
-.devId {
+.userId {
     width: 80px;
 }
 
 .state {
-    width: 80px;
+    width: 60px;
 }
 
 .title {
@@ -35,6 +35,6 @@
 }
 
 .date {
-    width: 230px;
+    width: 270px;
     margin-left: auto;
 }

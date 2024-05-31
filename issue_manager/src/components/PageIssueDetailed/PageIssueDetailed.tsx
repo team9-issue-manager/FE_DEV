@@ -22,8 +22,8 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack }) 
                 <div className='containerIssueDetailed'>
                     <div>Issue Title: {issue.title}</div>
                     <div>Issue Content: {issue.content}</div>
-                    <div>User ID: {issue.devId}</div>
-                    <div>Project Title: {issue.projectTitle}</div>
+                    <div>Dev ID: {issue.devId}</div>
+                    <div>Project Title: {issue.projectNum}</div>
                     <div>State: {issue.state}</div>
                     <div>Date: {issue.date}</div>
                     <div className='divider'></div>
