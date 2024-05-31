@@ -55,7 +55,7 @@ const PageFormat = () => {
     }
 
     return (
-        <div className='page'>
+        <div>
             <div className='sideMenu'>
                 <button>
                     <div id='buttonUsernameContent'>

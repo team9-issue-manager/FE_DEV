@@ -1,19 +1,6 @@
-.containerDisplayIssueList {
-    height: 100%;
-    width: 100%;
+.containerIssueList {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: left;
-}
-
-.filterButton {
-    background: transparent;
-    color: white;
-}
-
-.line {
-    width: 100%;
-    height: 0.5px;
-    background: #FFF;
+    overflow-y: auto;
+    white-space: nowrap;
 }

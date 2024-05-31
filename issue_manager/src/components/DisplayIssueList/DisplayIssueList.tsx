@@ -1,15 +1,25 @@
+import React from 'react';
 import './DisplayIssueList.css';
+import IssueListElement, { Issue } from '../IssueListElement/IssueListElement.tsx'
 
-import { IoFilter } from "react-icons/io5";
+type DisplayIssueListProps = {
+    issues: Issue[];
+    onIssueClick: (issue: Issue) => void;
+};
 
-const DisplayIssueList = () => {
+const DisplayIssueList: React.FC<DisplayIssueListProps>  = ({ issues, onIssueClick }) => {
     return (
-        <div className='containerDisplayIssueList'>
-            <button className='filterButton'>
-                <IoFilter />
-                <span className='buttonLabel'>Filter</span>
-            </button>
-            <div className='line'></div>
+        <div className='containerIssueList'>
+            {issues.length > 0 ? (
+                issues.map(issue => (
+                    <IssueListElement 
+                        key={issue.issueNum} 
+                        issue={issue} 
+                        onIssueClick={onIssueClick}/>
+                ))
+            ) : (
+                <div>No issues found</div>
+            )}
         </div>
     )
 }
