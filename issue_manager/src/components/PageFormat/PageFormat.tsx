@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import './PageFormat.css';
-import PageDefault from '../PageDefault/PageDefault.tsx'
-import PageSearch from '../PageSearch/PageSearch.tsx'
-import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx'
-
-// import ModalPopup from '../Modal/Modal';
+import PageDefault from '../PageDefault/PageDefault.tsx';
+import PageSearch from '../PageSearch/PageSearch.tsx';
+import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx';
+import ModalPopup from '../Modal/Modal';
 
 import { VscGraph } from "react-icons/vsc";
 import { IoMdNotificationsOutline } from "react-icons/io";
