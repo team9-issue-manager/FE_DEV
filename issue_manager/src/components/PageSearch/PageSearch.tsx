@@ -7,7 +7,6 @@ import { GoSearch } from "react-icons/go";
 import { IoFilter } from "react-icons/io5";
 
 const PageSearch: React.FC = () => {
-    const [searchQuery, setSearchQuery] = useState<string>('');
     const [issues, setIssues] = useState<Issue[]>([
         {
             "issueNum": 1,
