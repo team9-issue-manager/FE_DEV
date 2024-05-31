@@ -75,7 +75,7 @@ const PageSearch: React.FC = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ query: searchQuery }),
+            body: JSON.stringify({ filter: "title", value: searchQuery }),
         })
             .then(response => response.json())
             .then(data => setIssues(data))
