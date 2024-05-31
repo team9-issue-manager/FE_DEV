@@ -10,12 +10,6 @@
     gap: 20px;
 }
 
-.line {
-    width: 100%;
-    height: 0.5px;
-    background: #FFF;
-}
-
 .left {
     margin-left: auto;
     display: flex;

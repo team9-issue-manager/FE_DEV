@@ -1,13 +1,3 @@
-.filterButton {
-    background: transparent;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.line {
-    width: 100%;
-    height: 0.5px;
-    background: #FFF;
+.containerIssueList {
+    overflow-y: auto;
 }

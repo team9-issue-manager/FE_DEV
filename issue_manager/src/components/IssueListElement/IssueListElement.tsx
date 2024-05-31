@@ -4,11 +4,11 @@ const IssueListElement = () => {
     return (
         <div>
             <button className='containerIssueListElement'>
-                <span>Project Title</span>
-                <span>User_id</span>
-                <span>Status</span>
-                <span>Title</span>
-                <span className='left'>Date: 2024/05/30</span>
+                <span>project_title</span>
+                <span>user_id</span>
+                <span>status</span>
+                <span>issue_title</span>
+                <span className='left'>yyyy/mm/dd</span>
             </button>
             <div className='line'></div>
         </div>
