@@ -3,8 +3,9 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    gap: 20px;
-    width: 200px;
+    gap: 10px;
+    width: 170px;
+    height: 40px;
 }
 
 .containerIssueDetailed {

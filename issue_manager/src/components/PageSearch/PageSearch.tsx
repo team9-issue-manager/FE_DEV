@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './PageSearch.css';
 import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
 import PageIssueDetailed from '../PageIssueDetailed/PageIssueDetailed';
-import { Issue } from '../IssueListElement/IssueListElement'
+import { Issue } from '../ElementIssueList/ElementIssueList.tsx'
 import { GoSearch } from "react-icons/go";
 import { IoFilter } from "react-icons/io5";
 
@@ -10,54 +10,48 @@ const PageSearch: React.FC = () => {
     const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
     const [issues, setIssues] = useState<Issue[]>([
         {
-            "issueNum": 1,
-            "title": "Fix login bug",
-            "content": "Fix the login issue",
-            "devId": "dev1",
-            "projectId": 1,
-            "projectTitle": "AAAAA",
-            "state": 1,
-            "date": "2023-05-25T12:34:56.789Z"
-        },
-        {
-            "issueNum": 3,
-            "title": "Login page redesign",
-            "content": "Redesign the login page",
-            "devId": "dev3",
-            "projectId": 1,
-            "projectTitle": "BBB",
-            "state": 0,
-            "date": "2023-05-25T12:34:56.789Z"
-        },
-        {
-            "issueNum": 4,
-            "title": "Signup page redesign",
-            "content": "Redesign the login page",
-            "devId": "dev2",
-            "projectId": 1,
-            "projectTitle": "CCCC",
-            "state": 2,
-            "date": "2023-05-25T12:34:56.789Z"
-        },
-        {
             "issueNum": 5,
-            "title": "Fix search bug",
-            "content": "Redesign the login page",
-            "devId": "dev5",
-            "projectId": 1,
-            "projectTitle": "HH",
+            "title": "title1",
+            "content": "안녕하세요. 반갑습니다.",
+            "date": "2024-05-30T11:43:45.344+00:00",
             "state": 1,
-            "date": "2023-05-25T12:34:56.789Z"
+            "accountId": "tester1",
+            "devId": "dev1",
+            "projectNum": 1,
+            "tag": null
         },
         {
             "issueNum": 6,
-            "title": "Login page redesign",
-            "content": "Redesign the login page",
-            "devId": "dev3",
-            "projectId": 1,
-            "projectTitle": "RRRR",
+            "title": "title1",
+            "content": "안녕하세요. 반갑습니다.",
+            "date": "2024-05-30T11:51:38.414+00:00",
+            "state": 1,
+            "accountId": "tester1",
+            "devId": "dev1",
+            "projectNum": 1,
+            "tag": null
+        },
+        {
+            "issueNum": 7,
+            "title": "title1",
+            "content": "안녕하세요. 반갑습니다.",
+            "date": "2024-05-30T11:51:47.825+00:00",
             "state": 0,
-            "date": "2023-05-25T12:34:56.789Z"
+            "accountId": "tester1",
+            "devId": null,
+            "projectNum": 1,
+            "tag": null
+        },
+        {
+            "issueNum": 8,
+            "title": "title1",
+            "content": "안녕하세요. 반갑습니다.",
+            "date": "2024-05-30T11:51:48.916+00:00",
+            "state": 1,
+            "accountId": "tester1",
+            "devId": "dev2",
+            "projectNum": 1,
+            "tag": null
         }
     ]);
 
@@ -78,7 +72,13 @@ const PageSearch: React.FC = () => {
             body: JSON.stringify({ filter: "title", value: searchQuery }),
         })
             .then(response => response.json())
-            .then(data => setIssues(data))
+            .then(data => {
+                if (data.success) {
+                    setIssues(data.issues as Issue[]);
+                } else {
+                    setIssues([]);
+                }
+            })
             .catch(error => console.error('Error fetching issues:', error));
     };
 
@@ -115,7 +115,7 @@ const PageSearch: React.FC = () => {
                         </button>
                         <div className='containerIssueListElement'>
                             <span className='projectTitle'>Project</span>
-                            <span className='devId'>User ID</span>
+                            <span className='userId'>User ID</span>
                             <span className='state'>State</span>
                             <span className='title'>Issue Title</span>
                             <span className='date'>Date</span>
