@@ -12,7 +12,7 @@ import { GoSearch } from "react-icons/go";
 import { RiInbox2Fill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { VscIssues } from "react-icons/vsc";
-// import { PiListPlusFill } from "react-icons/pi";
+// simport { PiListPlusFill } from "react-icons/pi";
 import { IoIosArrowForward } from "react-icons/io";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import { CiMap } from "react-icons/ci";
@@ -21,7 +21,7 @@ const PageFormat = () => {
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
     const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
-    // const [ModalisOpen,setModalIsOpen]=useState(false);
+    const [ModalisOpen,setModalIsOpen]=useState(false);
 
 
     const toggleSdaArrow = () => {
