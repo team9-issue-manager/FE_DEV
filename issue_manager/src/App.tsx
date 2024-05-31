@@ -12,7 +12,6 @@ const App: React.FC = () => {
       <SignupForm></SignupForm>
       {/* <LoginForm></LoginForm> */}
       {/* <PageFormat></PageFormat> */}
-      {/* <ModalPopup></ModalPopup> */}
     </div>
     </BrowserRouter>
   );

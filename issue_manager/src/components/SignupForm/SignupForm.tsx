@@ -9,10 +9,11 @@ const SignupForm = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-  
-      const id = event.currentTarget.id.value;
-      const password = event.currentTarget.password.value;
-      const role = event.currentTarget.dropdownbox.value;
+
+      const id = (event.currentTarget.elements.namedItem('id') as HTMLInputElement).value;
+      const password = (event.currentTarget.elements.namedItem('password') as HTMLInputElement).value;
+      const role = (event.currentTarget.elements.namedItem('dropdownbox') as HTMLSelectElement).value;
+
   
       const data = {
           id,
