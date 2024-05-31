@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
-import './LoginForm.css';
-import logo_img from '../Assets/logo.png';
+import './SignupForm.css';
+import Dropdown from '../Dropdown/Dropdown';
+import DropdownItem from '../DropdownItem/DropdownItem';
 import { useNavigate } from 'react-router-dom';
 
-
-const LoginForm: React.FC= () => {
+const SignupForm: React.FC = () => {
     const [id, setId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능 사용
+    const [role, setRole] = useState<string>('');
+    const navigate = useNavigate();
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleItemClick = (item: string) => {
+        setRole(item);
+        console.log(`${item} clicked`);
+    };
+
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         const data = {
             id,
-            password
+            password,
+            role,
         };
 
         try {
-            const response = await fetch('http://localhost:8080/user/find', {
+            const response = await fetch('http://localhost:8080/user/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,34 +33,30 @@ const LoginForm: React.FC= () => {
                 body: JSON.stringify(data),
             });
 
-            if (response.ok) {
-                console.log('Login successful');
-                navigate('/PageFormat');
-                // 로그인이 성공하면 어떤 동작을 수행할지 여기에 작성합니다.
+            const result = await response.json();
+            if (result.success) {
+                console.log('Signup successful');
+                navigate('/LoginFormat'); // 회원가입이 성공하면 로그인 페이지로 이동
             } else {
-                console.error('Login failed');
-                // 로그인이 실패하면 어떤 동작을 수행할지 여기에 작성합니다.
+                console.error(result.result); // 회원가입이 실패하면 실패 메시지 출력
             }
         } catch (error) {
             console.error('Error:', error);
-            // 네트워크 또는 기타 오류가 발생하면 여기에 작성합니다.
         }
     };
-    
 
     return (
         <div className='wrapper0'>
             <div className='wrapper1'>
                 <form action=''>
-                    <p>Don't have an account?</p>
+                    <p>Already have an account?</p>
                     <div className='register-link'>
-                    <p><a href="#">Register</a></p> {/* 클릭 시 로그인 페이지로 이동 */}
+                        <p><a href="#">Log in</a></p> {/* 클릭 시 로그인 페이지로 이동 */}
                     </div>
                 </form>
             </div>
             <div className='wrapper2'>
                 <form onSubmit={handleSubmit}>
-                    <img src={logo_img} alt="Logo" width="282px" height="192px" />
                     <div className="input-box">
                         <input
                             type="text"
@@ -72,11 +75,25 @@ const LoginForm: React.FC= () => {
                             required
                         />
                     </div>
-                    <button type="submit">Login</button>
+                    <div className="role-select">
+                        <Dropdown
+                            buttonText="Role"
+                            content={
+                                <div>
+                                    <DropdownItem onClick={() => handleItemClick('tester')}>tester</DropdownItem>
+                                    <DropdownItem onClick={() => handleItemClick('pl')}>pl</DropdownItem>
+                                    <DropdownItem onClick={() => handleItemClick('dev')}>dev</DropdownItem>
+                                </div>
+                            }
+                            onSelect={handleItemClick}
+                            selectedItem={role}
+                        />
+                    </div>
+                    <button type="submit">Sign Up</button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default LoginForm;
+export default SignupForm;
