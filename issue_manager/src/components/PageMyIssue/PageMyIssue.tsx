@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './PageMyIssue.css';
 // import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
 import PageIssueDetailed from '../PageIssueDetailed/PageIssueDetailed';
-import { Issue } from '../IssueListElement/IssueListElement'
+import { Issue } from '../ElementIssueList/ElementIssueList'
 
 import { IoFilter } from "react-icons/io5";
 

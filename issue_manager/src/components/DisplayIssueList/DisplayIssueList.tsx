@@ -1,6 +1,6 @@
 import React from 'react';
 import './DisplayIssueList.css';
-import IssueListElement, { Issue } from '../IssueListElement/IssueListElement.tsx'
+import ElementIssueList, { Issue } from '../ElementIssueList/ElementIssueList.tsx'
 
 type DisplayIssueListProps = {
     issues: Issue[];
@@ -12,7 +12,7 @@ const DisplayIssueList: React.FC<DisplayIssueListProps>  = ({ issues, onIssueCli
         <div className='containerIssueList'>
             {issues.length > 0 ? (
                 issues.map(issue => (
-                    <IssueListElement 
+                    <ElementIssueList
                         key={issue.issueNum} 
                         issue={issue} 
                         onIssueClick={onIssueClick}/>

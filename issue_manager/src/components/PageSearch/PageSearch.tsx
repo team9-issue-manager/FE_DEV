@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './PageSearch.css';
 import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
 import PageIssueDetailed from '../PageIssueDetailed/PageIssueDetailed';
-import { Issue } from '../IssueListElement/IssueListElement'
+import { Issue } from '../ElementIssueList/ElementIssueList.tsx'
 import { GoSearch } from "react-icons/go";
 import { IoFilter } from "react-icons/io5";
 

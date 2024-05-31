@@ -1,5 +1,5 @@
 import React from 'react'
-import './IssueListElement.css';
+import './ElementIssueList.css';
 
 export type Issue = {
     issueNum: number;
@@ -13,15 +13,15 @@ export type Issue = {
     tag: string[] | null;
 }
 
-type IssueListElementProps = {
+type ElementIssueListProps = {
     issue: Issue;
     onIssueClick: (issue: Issue) => void;
 }
 
-const IssueListElement: React.FC<IssueListElementProps> = ({ issue, onIssueClick }) => {
+const ElementIssueList: React.FC<ElementIssueListProps> = ({ issue, onIssueClick }) => {
     return (
         <div>
-            <button className='containerIssueListElement' onClick={() => onIssueClick(issue)}>
+            <button className='containerElementIssueList' onClick={() => onIssueClick(issue)}>
                 <span className='projectTitle'>{issue.projectNum}</span>
                 <span className='userId'>{issue.accountId}</span>
                 <span className='state'>{issue.state}</span>
@@ -33,4 +33,4 @@ const IssueListElement: React.FC<IssueListElementProps> = ({ issue, onIssueClick
     );
 }
 
-export default IssueListElement;
+export default ElementIssueList;

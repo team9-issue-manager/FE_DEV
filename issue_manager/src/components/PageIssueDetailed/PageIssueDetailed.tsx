@@ -1,6 +1,8 @@
 import React from 'react';
 import './PageIssueDetailed.css'
-import { Issue } from '../IssueListElement/IssueListElement';
+import { Issue } from '../ElementIssueList/ElementIssueList';
+import DisplayCommentList from '../DisplayCommentList/DisplayCommentList.tsx'
+
 import { IoIosArrowBack } from "react-icons/io";
 
 type PageIssueDetailedProps = {
@@ -20,12 +22,12 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack }) 
                     <span>Back to List</span>
                 </button>
                 <div className='containerIssueDetailed'>
+                    <div>Project: {issue.projectNum}</div>
                     <div>Issue Title: {issue.title}</div>
-                    <div>Issue Content: {issue.content}</div>
-                    <div>Dev ID: {issue.devId}</div>
-                    <div>Project Title: {issue.projectNum}</div>
+                    <div>Created by: {issue.accountId}</div>
+                    <div>Created Date: {issue.date}</div>
                     <div>State: {issue.state}</div>
-                    <div>Date: {issue.date}</div>
+                    <div>Issue Content: {issue.content}</div>
                     <div className='divider'></div>
                     <div>Activity</div>
                     <div>State 변경: </div>
@@ -37,6 +39,9 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack }) 
                             name='comment' />
                     </div>
                     <div>Comment 불러오기: </div>
+                    <div className='containerComment'>
+                       <DisplayCommentList /> 
+                    </div>
                 </div>
             </div>
         </div>
