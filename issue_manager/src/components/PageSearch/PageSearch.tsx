@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import './PageSearch.css';
 import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
+import PageIssueDetailed from '../PageIssueDetailed/PageIssueDetailed';
 import { Issue } from '../IssueListElement/IssueListElement'
-
 import { GoSearch } from "react-icons/go";
 import { IoFilter } from "react-icons/io5";
 
 const PageSearch: React.FC = () => {
+    const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
     const [issues, setIssues] = useState<Issue[]>([
         {
             "issueNum": 1,
@@ -81,35 +82,50 @@ const PageSearch: React.FC = () => {
             .catch(error => console.error('Error fetching issues:', error));
     };
 
+    const handleIssueClick = (issue: Issue) => {
+        setSelectedIssue(issue);
+    }
+
+    const handleBackToList = () => {
+        setSelectedIssue(null);
+    }
+
     return (
         <div>
-            <div className='topBanner'>
-                <span className='bannerName'>Issues</span>
-            </div>
-            <div className='pageBody'>
-                <form onSubmit={handleSearchSubmit}>
-                    <div className='searchBox'>
-                        <GoSearch />
-                        <input
-                            type='text'
-                            placeholder='Search'
-                            name='search' />
+            {selectedIssue ? (
+                <PageIssueDetailed issue={selectedIssue} onBack={handleBackToList} />
+            ) : (
+                <div>
+                    <div className='topBanner'>
+                        <span className='bannerName'>Issues</span>
                     </div>
-                </form>
-                <button className='filterButton'>
-                    <IoFilter />
-                    <span className='buttonLabel'>Filter</span>
-                </button>
-                <div className='containerIssueListElement'>
-                    <span className='projectTitle'>Project</span>
-                    <span className='devId'>User ID</span>
-                    <span className='state'>State</span>
-                    <span className='title'>Issue Title</span>
-                    <span className='date'>Date</span>
+                    <div className='pageBody'>
+                        <form onSubmit={handleSearchSubmit}>
+                            <div className='searchBox'>
+                                <GoSearch />
+                                <input
+                                    type='text'
+                                    placeholder='Search'
+                                    name='search' />
+                            </div>
+                        </form>
+                        <button className='filterButton'>
+                            <IoFilter />
+                            <span className='buttonLabel'>Filter</span>
+                        </button>
+                        <div className='containerIssueListElement'>
+                            <span className='projectTitle'>Project</span>
+                            <span className='devId'>User ID</span>
+                            <span className='state'>State</span>
+                            <span className='title'>Issue Title</span>
+                            <span className='date'>Date</span>
+                        </div>
+                        <div className='divider'></div>
+                        <DisplayIssueList issues={issues} onIssueClick={handleIssueClick} />
+                    </div>
                 </div>
-                <div className='divider'></div>
-                <DisplayIssueList issues={issues} />
-            </div>
+            )
+            }
         </div >
     );
 }

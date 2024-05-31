@@ -14,12 +14,13 @@ export type Issue = {
 
 type IssueListElementProps = {
     issue: Issue;
+    onIssueClick: (issue: Issue) => void;
 }
 
-const IssueListElement: React.FC<IssueListElementProps> = ({ issue }) => {
+const IssueListElement: React.FC<IssueListElementProps> = ({ issue, onIssueClick }) => {
     return (
         <div>
-            <button className='containerIssueListElement'>
+            <button className='containerIssueListElement' onClick={() => onIssueClick(issue)}>
                 <span className='projectTitle'>{issue.projectTitle}</span>
                 <span className='devId'>{issue.devId}</span>
                 <span className='state'>{issue.state}</span>
