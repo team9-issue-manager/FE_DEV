@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './PageMyIssue.css';
-// import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
+import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
 import PageIssueDetailed from '../PageIssueDetailed/PageIssueDetailed';
 import { Issue } from '../ElementIssueList/ElementIssueList'
 
@@ -8,17 +8,60 @@ import { IoFilter } from "react-icons/io5";
 
 const PageMyIssue = () => {
     const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
-    // const [issues, setIssues] = useState<Issue[]>([
-            
-    // ]);
+    const [issues, setIssues] = useState<Issue[]>([
+        {
+            "issueNum": 5,
+            "title": "title1",
+            "content": "안녕하세요. 반갑습니다.",
+            "date": "2024-05-30T11:43:45.344+00:00",
+            "state": 1,
+            "accountId": "tester1",
+            "devId": "dev1",
+            "projectNum": 1,
+            "tag": null
+        },
+        {
+            "issueNum": 6,
+            "title": "title1",
+            "content": "안녕하세요. 반갑습니다.",
+            "date": "2024-05-30T11:51:38.414+00:00",
+            "state": 1,
+            "accountId": "tester1",
+            "devId": "dev1",
+            "projectNum": 1,
+            "tag": null
+        },
+        {
+            "issueNum": 7,
+            "title": "title1",
+            "content": "안녕하세요. 반갑습니다.",
+            "date": "2024-05-30T11:51:47.825+00:00",
+            "state": 0,
+            "accountId": "tester1",
+            "devId": null,
+            "projectNum": 1,
+            "tag": null
+        },
+        {
+            "issueNum": 8,
+            "title": "title1",
+            "content": "안녕하세요. 반갑습니다.",
+            "date": "2024-05-30T11:51:48.916+00:00",
+            "state": 1,
+            "accountId": "tester1",
+            "devId": "dev2",
+            "projectNum": 1,
+            "tag": null
+        }
+    ]);
 
-    // const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const form = e.target as HTMLFormElement;
-    //     const input = form.elements.namedItem('search') as HTMLInputElement;
-    //     const searchQuery = input.value;
-    //     fetchIssues(searchQuery);
-    // };
+    const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        const input = form.elements.namedItem('search') as HTMLInputElement;
+        const searchQuery = input.value;
+        // fetchIssues(searchQuery);
+    };
 
     // const fetchIssues = (searchQuery: string) => {
     //     fetch('http://localhost:8080/issue/find', {
@@ -33,9 +76,9 @@ const PageMyIssue = () => {
     //         .catch(error => console.error('Error fetching issues:', error));
     // };
 
-    // const handleIssueClick = (issue: Issue) => {
-    //     setSelectedIssue(issue);
-    // }
+    const handleIssueClick = (issue: Issue) => {
+        setSelectedIssue(issue);
+    }
 
     const handleBackToList = () => {
         setSelectedIssue(null);
@@ -71,7 +114,7 @@ const PageMyIssue = () => {
                         <span className='date'>Date</span>
                     </div>
                     <div className='divider'></div>
-                    {/* <DisplayIssueList issues={issues} onIssueClick={handleIssueClick} /> */}
+                    <DisplayIssueList issues={issues} onIssueClick={handleIssueClick} />
                 </div>
             </div>
             )
