@@ -68,6 +68,7 @@
 }
 
 .filterButton {
+    width: 110px;
     background: transparent;
     color: white;
     display: flex;

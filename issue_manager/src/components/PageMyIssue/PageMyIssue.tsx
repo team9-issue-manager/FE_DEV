@@ -27,6 +27,13 @@ const PageMyIssue = () => {
                     <IoFilter />
                     <span>Filter</span>
                 </button>
+                <div className='containerIssueListElement'>
+                    <span className='projectTitle'>Project</span>
+                    <span className='devId'>User ID</span>
+                    <span className='state'>State</span>
+                    <span className='title'>Issue Title</span>
+                    <span className='date'>Date</span>
+                </div>
                 <div className='divider'></div>
                 <DisplayIssueList issues={issues}/>
             </div>

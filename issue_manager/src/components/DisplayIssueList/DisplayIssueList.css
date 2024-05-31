@@ -1,3 +1,6 @@
 .containerIssueList {
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
+    white-space: nowrap;
 }

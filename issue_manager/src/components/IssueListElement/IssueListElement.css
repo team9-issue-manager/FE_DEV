@@ -10,32 +10,31 @@
     gap: 10px;
 }
 
-.projectTitle {
+.containerIssueListElement span {
     display: flex;
     justify-content: left;
-    width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+
+.projectTitle {
+    width: 100px;
 }
 
 .devId {
-    display: flex;
-    justify-content: left;
-    width: 60px;
+    width: 80px;
 }
 
 .state {
-    display: flex;
-    justify-content: left;
-    width: 40px;
+    width: 80px;
 }
 
 .title {
-    display: flex;
-    justify-content: left;
-    width: auto;
+    width: 300px;
 }
 
 .date {
-    width: 220px;
+    width: 230px;
     margin-left: auto;
-    display: flex;
 }
