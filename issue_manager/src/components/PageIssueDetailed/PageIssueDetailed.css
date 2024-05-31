@@ -1,0 +1,26 @@
+.backToListButton {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 20px;
+    width: 200px;
+}
+
+.containerIssueDetailed {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    color: white;
+    gap: 10px;
+}
+
+.commentBox input{
+    background: #F4F1EB;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    border: transparent;
+    border-radius: 4px;
+    color: #828282;
+}
