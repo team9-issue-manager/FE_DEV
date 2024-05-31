@@ -7,11 +7,35 @@
     color: white;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
-.left {
+.projectTitle {
+    display: flex;
+    justify-content: left;
+    width: 80px;
+}
+
+.devId {
+    display: flex;
+    justify-content: left;
+    width: 60px;
+}
+
+.state {
+    display: flex;
+    justify-content: left;
+    width: 40px;
+}
+
+.title {
+    display: flex;
+    justify-content: left;
+    width: auto;
+}
+
+.date {
+    width: 220px;
     margin-left: auto;
     display: flex;
-    gap: 20px;
 }

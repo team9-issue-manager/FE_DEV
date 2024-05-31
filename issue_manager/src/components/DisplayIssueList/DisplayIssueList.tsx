@@ -1,21 +1,20 @@
 import './DisplayIssueList.css';
-import IssueListElement from '../IssueListElement/IssueListElement.tsx'
+import IssueListElement, { Issue } from '../IssueListElement/IssueListElement.tsx'
 
-const DisplayIssueList = () => {
+type DisplayIssueListProps = {
+    issues: Issue[];
+}
+
+const DisplayIssueList: React.FC<DisplayIssueListProps>  = ({ issues }) => {
     return (
         <div className='containerIssueList'>
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
-            <IssueListElement />
+            {issues.length > 0 ? (
+                issues.map(issue => (
+                    <IssueListElement key={issue.issueNum} issue={issue} />
+                ))
+            ) : (
+                <div>No issues found</div>
+            )}
         </div>
     )
 }

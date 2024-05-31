@@ -81,6 +81,12 @@
     background: #FFF;
 }
 
+.divider {
+    width: 100%;
+    height: 3px;
+    background: #FFF;
+}
+
 #buttonUsernameContent {
     display: flex;
     justify-content: center;

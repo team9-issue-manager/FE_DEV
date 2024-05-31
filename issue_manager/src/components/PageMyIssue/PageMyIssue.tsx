@@ -1,9 +1,13 @@
+import React, { useState } from 'react';
 import './PageMyIssue.css';
 import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
+import { Issue } from '../IssueListElement/IssueListElement'
 
 import { IoFilter } from "react-icons/io5";
 
 const PageMyIssue = () => {
+    const [issues, setIssues] = useState<Issue[]>([]);
+
     return (
         <div>
             <div className='topBanner'>
@@ -23,12 +27,8 @@ const PageMyIssue = () => {
                     <IoFilter />
                     <span>Filter</span>
                 </button>
-                <div className='line'></div>
-                <div className='line'></div>
-                <div className='line'></div>
-                <div className='line'></div>
-                <div className='line'></div>
-                <DisplayIssueList />
+                <div className='divider'></div>
+                <DisplayIssueList issues={issues}/>
             </div>
         </div>
     );
