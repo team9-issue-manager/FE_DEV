@@ -113,7 +113,7 @@ const PageSearch: React.FC = () => {
                             <IoFilter />
                             <span className='buttonLabel'>Filter</span>
                         </button>
-                        <div className='containerIssueListElement'>
+                        <div className='containerElementIssueList'>
                             <span className='projectTitle'>Project</span>
                             <span className='userId'>User ID</span>
                             <span className='state'>State</span>
