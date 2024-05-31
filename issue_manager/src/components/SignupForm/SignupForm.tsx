@@ -8,40 +8,43 @@ const SignupForm = () => {
     const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능 사용
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        const id = event.currentTarget.id.valueOf;
-        const password = event.currentTarget.password.value;
-        const role = event.currentTarget.dropdownbox.value;
-
-        const data = {
-            id,
-            password,
-            role
-        };
-
-        try {
-            const response = await fetch('http://localhost:8080/user/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-
-            if (response.ok) {
-                console.log('Signup successful');
-                navigate('/LoginPage');
-                // 회원가입이 성공하면 어떤 동작을 수행할지 여기에 작성합니다.
-            } else {
-                console.error('Signup failed');
-                // 회원가입이 실패하면 어떤 동작을 수행할지 여기에 작성합니다.
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            // 네트워크 또는 기타 오류가 발생하면 여기에 작성합니다.
-        }
-    };
+      event.preventDefault();
+  
+      const id = event.currentTarget.id.value;
+      const password = event.currentTarget.password.value;
+      const role = event.currentTarget.dropdownbox.value;
+  
+      const data = {
+          id,
+          password,
+          role
+      };
+  
+      try {
+          const response = await fetch('http://localhost:8080/user/signup', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+          });
+  
+          if (response.ok) {
+              const responseData = await response.json();
+              if (responseData.success) {
+                  console.log('Signup successful');
+                  navigate('/LoginPage');
+              } else {
+                  console.error('Signup failed:', responseData.result);
+              }
+          } else {
+              console.error('Signup failed');
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  };
+  
 
     return (
         <div className='wrapper0'>
