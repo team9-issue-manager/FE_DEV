@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import React, { useState } from 'react';
+import React from 'react';
 import '../Modal/Modal.css'
 
 const ModalPopup: React.FC<{ isOpen: boolean; closeModal: () => void; }> = ({ isOpen, closeModal }) => {

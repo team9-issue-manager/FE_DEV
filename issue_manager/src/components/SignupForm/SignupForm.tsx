@@ -24,10 +24,8 @@ const SignupForm = () => {
             role
         };
 
-        console.log('Simulating register success');
-        navigate('/');
         try {
-            const response = await fetch('http://localhost:8080/user/register', {
+            const response = await fetch('http://localhost:8080/user/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

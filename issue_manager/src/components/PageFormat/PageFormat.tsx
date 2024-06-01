@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './PageFormat.css';
 import PageDefault from '../PageDefault/PageDefault.tsx'
 import PageSearch from '../PageSearch/PageSearch.tsx'
@@ -65,7 +65,7 @@ const PageFormat = () => {
                 <button>
                     <div id='buttonUsernameContent'>
                         <FaRegUser />
-                        {/* <span>{id}/{role}</span> */}
+                        <span>{id}/{role}</span>
                         <IoIosArrowForward />
                     </div>
                 </button>
