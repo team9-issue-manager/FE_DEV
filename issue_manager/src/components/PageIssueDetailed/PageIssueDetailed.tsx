@@ -115,10 +115,15 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack }) 
                     <div>Created by: {issue.accountId}</div>
                     <div>Created Date: {issue.date}</div>
                     <div>State: {issue.state}</div>
-                    <div>Issue Content: {issue.content}</div>
+                    <div>Description: {issue.content}</div>
                     <div className='divider'></div>
                     <div>Activity</div>
-                    <div>State 변경: </div>
+                    <div>// ( role==pl && state==0 ) : Dev 배정: dev 목록에서 고르기.</div>
+                    <div>// pl이 dev 배정하면 상태는 자동으로 new에서 assigned로</div>
+                    <div>State 변경:</div>
+                    <div>// ( role==dev && state==1 ) : [fixed]</div>
+                    <div>// ( role==tester && state==2 ) : [resolved] [not fixed]</div>
+                    <div>// ( role==pl && state==3 ) : [closed] [not resolved]</div>
                     <form className='commentBox' onSubmit={handleCommentSubmit}>
                         <input
                             type='text'
