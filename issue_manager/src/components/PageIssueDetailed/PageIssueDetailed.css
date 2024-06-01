@@ -18,6 +18,12 @@
     gap: 15px;
 }
 
+.containerAssignDev {
+    gap: 20px;
+    display: flex;
+    align-items: center;
+}
+
 .commentBox input{
     background: #F4F1EB;
     width: 100%;

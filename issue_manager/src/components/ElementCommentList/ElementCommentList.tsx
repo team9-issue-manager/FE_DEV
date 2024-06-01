@@ -3,10 +3,10 @@ import './ElementCommentList.css';
 
 export type Comment = {
     issueNum: number;
+    commentNum: number;
     content: string;
-    date: string;
-    commentId: number;
     accountId: string;
+    date: string;
 };
 
 type ElementCommentListProps = {
