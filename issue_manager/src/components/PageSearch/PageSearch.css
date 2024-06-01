@@ -1,8 +1,33 @@
+.search {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    height: 80px;
+}
+
+.browseAll{
+    display: flex;
+    margin: 10px;
+    height: 60px;
+    width: 120px;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+    background: #F4F1EB;
+    color: #5a5a5a;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.containerSearchBox {
+    width: 100%;
+}
+
 .searchBox {
     display: flex;
-    width: 95%;
+    width: 100%;
     height: 40px;
-    margin: 20px auto 5px;
     padding: 8px 16px 8px 12px;
     align-items: center;
     gap: 12px;

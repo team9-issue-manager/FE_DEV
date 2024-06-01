@@ -13,22 +13,28 @@
 .containerIssueDetailed {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     color: white;
-    gap: 15px;
+    gap: 10px;
 }
 
-.containerAssignDev {
+.containerAssignDev, .containerChangeState {
     gap: 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.containerAssignDev button, .containerChangeState button{
+    background: #F4F1EB;
+    color: #828282;
+    border-radius: 10px;
 }
 
 .commentBox input{
     background: #F4F1EB;
     width: 100%;
     box-sizing: border-box;
-    height: 20px;
+    height: 40px;
     flex-shrink: 0;
     font-size: 15px;
     padding: 15px;
@@ -46,4 +52,16 @@
     height: 40px; 
     background: transparent;
     color: white;
+}
+
+.issueTitle {
+    font-size: 30px;
+}
+
+.description {
+    height: 100px;
+}
+
+.activity {
+    font-size: 25px;
 }
