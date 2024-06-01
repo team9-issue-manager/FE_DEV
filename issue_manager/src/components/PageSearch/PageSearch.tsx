@@ -58,20 +58,17 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
                 "projectNum": 1,
                 "tag": null
             },
-            {
-                "issueNum": 6,
-                "title": `another title matching ${searchQuery}`,
-                "content": "안녕하세요. 반갑습니다.",
-                "date": "2024-05-30T11:51:38.414+00:00",
-                "state": 1,
-                "accountId": "tester1",
-                "devId": "dev1",
-                "projectNum": 1,
-                "tag": null
-            }
-        ];
-
-        setIssues(testIssues);
+            body: JSON.stringify({ filter: "title", value: searchQuery }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    setIssues(data.issues as Issue[]);
+                } else {
+                    setIssues([]);
+                }
+            })
+            .catch(error => console.error('Error fetching issues:', error));
     };
     // issue 검색 - 테스트용
 
