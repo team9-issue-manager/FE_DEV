@@ -9,7 +9,7 @@ type DisplayIssueListProps = {
 
 const DisplayIssueList: React.FC<DisplayIssueListProps>  = ({ issues, onIssueClick }) => {
     return (
-        <div className='containerIssueList'>
+        <div>
             {issues.length > 0 ? (
                 issues.map(issue => (
                     <ElementIssueList

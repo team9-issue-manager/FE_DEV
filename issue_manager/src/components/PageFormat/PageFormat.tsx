@@ -22,7 +22,7 @@ import { useLocation } from 'react-router-dom';
 
 const PageFormat = () => {
     const location = useLocation();
-    const { id, role } = location.state;
+    // const { id, role } = location.state;
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
     const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
