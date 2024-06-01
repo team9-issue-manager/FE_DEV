@@ -6,11 +6,12 @@ import PageFormat from './components/PageFormat/PageFormat';
 
 const App = () => {
     return (
-        <Routes>
-            <Route path="/signup" element={<SignupForm />} />
-            <Route path="/PageFormat" element={<PageFormat />} />
-            <Route path="/" element={<LoginForm />} />
-        </Routes>
+        <PageFormat />
+        // <Routes>
+        //     <Route path="/signup" element={<SignupForm />} />
+        //     <Route path="/PageFormat" element={<PageFormat />} />
+        //     <Route path="/" element={<LoginForm />} />
+        // </Routes>
     );
 };
 
