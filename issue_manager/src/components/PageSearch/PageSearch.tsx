@@ -76,7 +76,7 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
                 "date": "2024-05-30T11:51:38.414+00:00",
                 "state": 4,
                 "accountId": "tester1",
-                "devId": null,
+                "devId": "dev1",
                 "projectNum": 1,
                 "tag": null
             }
