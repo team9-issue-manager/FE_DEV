@@ -8,52 +8,7 @@ import { IoFilter } from "react-icons/io5";
 
 const PageSearch: React.FC = () => {
     const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
-    const [issues, setIssues] = useState<Issue[]>([
-        {
-            "issueNum": 5,
-            "title": "title1",
-            "content": "안녕하세요. 반갑습니다.",
-            "date": "2024-05-30T11:43:45.344+00:00",
-            "state": 1,
-            "accountId": "tester1",
-            "devId": "dev1",
-            "projectNum": 1,
-            "tag": null
-        },
-        {
-            "issueNum": 6,
-            "title": "title1",
-            "content": "안녕하세요. 반갑습니다.",
-            "date": "2024-05-30T11:51:38.414+00:00",
-            "state": 1,
-            "accountId": "tester1",
-            "devId": "dev1",
-            "projectNum": 1,
-            "tag": null
-        },
-        {
-            "issueNum": 7,
-            "title": "title1",
-            "content": "안녕하세요. 반갑습니다.",
-            "date": "2024-05-30T11:51:47.825+00:00",
-            "state": 0,
-            "accountId": "tester1",
-            "devId": null,
-            "projectNum": 1,
-            "tag": null
-        },
-        {
-            "issueNum": 8,
-            "title": "title1",
-            "content": "안녕하세요. 반갑습니다.",
-            "date": "2024-05-30T11:51:48.916+00:00",
-            "state": 1,
-            "accountId": "tester1",
-            "devId": "dev2",
-            "projectNum": 1,
-            "tag": null
-        }
-    ]);
+    const [issues, setIssues] = useState<Issue[]>([]);
 
     const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -63,23 +18,54 @@ const PageSearch: React.FC = () => {
         fetchIssues(searchQuery);
     };
 
+    // 실제 서버 연결
+    // const fetchIssues = (searchQuery: string) => {
+    //     fetch('http://localhost:8080/issue/find', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ filter: "title", value: searchQuery }),
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 setIssues(data.issues as Issue[]);
+    //             } else {
+    //                 setIssues([]);
+    //             }
+    //         })
+    //         .catch(error => console.error('Error fetching issues:', error));
+    // };
+
+    // 서버 연결 없이 테스트용
     const fetchIssues = (searchQuery: string) => {
-        fetch('http://localhost:8080/issue/find', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+        const testIssues = [
+            {
+                "issueNum": 5,
+                "title": `title matching ${searchQuery}`,
+                "content": "안녕하세요. 반갑습니다.",
+                "date": "2024-05-30T11:43:45.344+00:00",
+                "state": 1,
+                "accountId": "tester1",
+                "devId": "dev1",
+                "projectNum": 1,
+                "tag": null
             },
-            body: JSON.stringify({ filter: "title", value: searchQuery }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    setIssues(data.issues as Issue[]);
-                } else {
-                    setIssues([]);
-                }
-            })
-            .catch(error => console.error('Error fetching issues:', error));
+            {
+                "issueNum": 6,
+                "title": `another title matching ${searchQuery}`,
+                "content": "안녕하세요. 반갑습니다.",
+                "date": "2024-05-30T11:51:38.414+00:00",
+                "state": 1,
+                "accountId": "tester1",
+                "devId": "dev1",
+                "projectNum": 1,
+                "tag": null
+            }
+        ];
+
+        setIssues(testIssues);
     };
 
     const handleIssueClick = (issue: Issue) => {

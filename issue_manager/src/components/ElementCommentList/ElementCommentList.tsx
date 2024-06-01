@@ -1,3 +1,4 @@
+import React from 'react';
 import './ElementCommentList.css';
 
 export type Comment = {
@@ -8,14 +9,18 @@ export type Comment = {
     accountId: string;
 };
 
-const ElementCommentList = () => {
+type ElementCommentListProps = {
+    comment: Comment;
+}
+
+const ElementCommentList: React.FC<ElementCommentListProps> =  ({ comment }) => {
     return (
         <div>
-            <div className='line'></div>
             <div className='containerElementCommentList'>
-                <span className='cUserId'>accountID</span>
-                <span className='cContent'>content</span>
-                <span className='cDate'>date</span>
+                <span className='cUserId'>{comment.accountId}</span>
+                <span>:</span>
+                <span className='cContent'>{comment.content}</span>
+                <span className='cDate'>{comment.date}</span>
             </div>
             <div className='line'></div>
         </div>

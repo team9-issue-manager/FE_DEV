@@ -1,14 +1,23 @@
+import React from 'react';
 import './DisplayCommentList.css'
 import ElementCommentList, { Comment } from '../ElementCommentList/ElementCommentList.tsx'
 
-const DisplayCommentList = () => {
+type DisplayCommentListProps = {
+    comments: Comment[];
+}
+
+const DisplayCommentList: React.FC<DisplayCommentListProps> = ({ comments }) => {
     return (
         <div className='containerCommentList'>
-            <ElementCommentList />
-            <ElementCommentList />
-            <ElementCommentList />
-            <ElementCommentList />
-            <ElementCommentList />
+            {comments.length > 0 ? (
+                comments.map(comment => (
+                    <ElementCommentList
+                        key={comment.commentId}
+                        comment={comment} />
+                ))
+            ) : (
+                <div>No comments found</div>
+            )}
         </div>
     )
 }
