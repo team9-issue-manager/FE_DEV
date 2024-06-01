@@ -27,6 +27,7 @@ const ModalPopup: React.FC<{ isOpen: boolean; closeModal: () => void; }> = ({ is
         closeModal();
     };
     return (
+        <div className='wrapper0'>
         <div className='ModalButton'>
             <Modal
                 isOpen={isOpen}
@@ -34,8 +35,11 @@ const ModalPopup: React.FC<{ isOpen: boolean; closeModal: () => void; }> = ({ is
                 overlayClassName="ModalOverlay"
                 className='ModalContent'
             >
-                <button onClick={handleCloseModal}>close issue</button>
+                <div className='wrapper1'>
+                <button className='modalclose' onClick={handleCloseModal}>close issue</button>
+                </div>
             </Modal>
+        </div>
         </div>
     );
 };

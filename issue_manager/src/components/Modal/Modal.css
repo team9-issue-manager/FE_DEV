@@ -19,3 +19,7 @@
     width: 819px;
     height: 475px;
 }
+
+.wrapper1 modalclose{
+    align-items: end;
+}

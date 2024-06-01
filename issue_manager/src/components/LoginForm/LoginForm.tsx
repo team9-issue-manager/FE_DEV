@@ -10,7 +10,7 @@ const LoginForm: React.FC = () => {
     const navigate = useNavigate();
     const [activeButton, setActiveButton] = useState(' ');
 
-    const handleButtonClick = (component: string, buttonId: string) => {
+    const handleButtonClick = (buttonId: string) => {
         setActiveButton(buttonId);
     };
 
@@ -21,11 +21,6 @@ const LoginForm: React.FC = () => {
             id,
             password
         };
-
-        console.log('Simulating login success');
-        navigate('/PageFormat');
-
-        /*
         try {
             const response = await fetch('http://localhost:8080/user/find', {
                 method: 'POST',
@@ -36,15 +31,19 @@ const LoginForm: React.FC = () => {
             });
 
             if (response.ok) {
-                console.log('Login successful');
-                navigate('/PageFormat'); // 로그인이 성공하면 PageFormat 페이지로 이동합니다.
+                const responseData = await response.json();
+                const { success, id, role } = responseData;
+                if (success) {
+                    navigate('/PageFormat', { state: { id, role } }); // 다음 페이지로 id와 role 정보를 전달합니다.
+                } else {
+                    console.error('Login failed');
+                }
             } else {
                 console.error('Login failed');
             }
         } catch (error) {
             console.error('Error:', error);
         }
-        */
     };
 
     return (
@@ -78,7 +77,7 @@ const LoginForm: React.FC = () => {
                             required
                         />
                     </div>
-                    <button type="submit" id={activeButton === 'loginsuccess' ? 'active' : ''} onClick={() => handleButtonClick('loginsuccess', 'loginsuccess')}>
+                    <button type="submit" id={activeButton === 'loginsuccess' ? 'active' : ''} onClick={() => handleButtonClick('loginsuccess')}>
                         <div className='buttonContent'>
                             <span>Login</span>
                         </div>

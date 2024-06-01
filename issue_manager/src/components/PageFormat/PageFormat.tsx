@@ -17,8 +17,12 @@ import { PiListPlusFill } from "react-icons/pi";
 import { IoIosArrowForward } from "react-icons/io";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import { CiMap } from "react-icons/ci";
+import { useLocation } from 'react-router-dom';
+
 
 const PageFormat = () => {
+    const location = useLocation();
+    const { id, role } = location.state;
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
     const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
@@ -61,7 +65,7 @@ const PageFormat = () => {
                 <button>
                     <div id='buttonUsernameContent'>
                         <FaRegUser />
-                        <span>User Name</span>
+                        <span>{id}, {role}</span>
                         <IoIosArrowForward />
                     </div>
                 </button>

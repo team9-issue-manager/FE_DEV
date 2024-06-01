@@ -7,7 +7,7 @@ const SignupForm = () => {
     const [activeButton, setActiveButton] = useState(' ');
     const navigate = useNavigate();
 
-    const handleButtonClick = (component: string, buttonId: string) => {
+    const handleButtonClick = (buttonId: string) => {
         setActiveButton(buttonId);
     };
 
@@ -26,8 +26,6 @@ const SignupForm = () => {
 
         console.log('Simulating register success');
         navigate('/');
-
-        /*
         try {
             const response = await fetch('http://localhost:8080/user/register', {
                 method: 'POST',
@@ -46,7 +44,6 @@ const SignupForm = () => {
         } catch (error) {
             console.error('Error:', error);
         }
-        */
     };
 
     return (
@@ -84,7 +81,7 @@ const SignupForm = () => {
                             <option value="tester">tester</option>
                         </select>
                     </div>
-                    <button type="submit" id={activeButton === 'registersuccess' ? 'active' : ''} onClick={() => handleButtonClick('registersuccess', 'registersuccess')}>
+                    <button type="submit" id={activeButton === 'registersuccess' ? 'active' : ''} onClick={() => handleButtonClick('registersuccess')}>
                         <div className='buttonContent'>
                             <span>Sign up</span>
                         </div>
