@@ -1,74 +1,92 @@
-.wrapper0{
+/* 공통 스타일 */
+.wrapper0 {
     display: flex;
     flex-direction: row;
 }
 
-.wrapper1{
-    width: 545px;
+.wrapper1, .wrapper2 {
     height: 492px;
-    background:#BEA18D;
-    color: #000;
-    text-align: center;
-    font-family: Inter;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 619;
-    line-height: normal;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-.wrapper1 .button{
-    background: transparent;
-}
-
-.wrapper2{
+/* 로그인 페이지 스타일 */
+.wrapper1 {
     width: 391px;
-    height: 492px;
-    background: #FFF;;
+    background: #BEA18D;
+    color: #000;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    font-weight: 619;
+}
+
+.wrapper1 p {
+    margin: 10px 0;
+}
+
+.wrapper1 .register-link a {
+    color: #000;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    text-decoration: underline;
+}
+
+.wrapper2 {
+    width: 545px;
+    background: #FFF;
     color: black;
-    padding-top: 33px;
-    padding-left: 51.5px;
-    padding-right: 51.5px;
-
 }
 
-.wrapper2 img{
-    background-color: transparent;
+.wrapper2 img {
+    margin-bottom: 20px;
 }
 
-.wrapper2 .input-box{
-    position: relative;
-    width: 288px;
-    height: 43px;
+.wrapper2 .input-box {
+    width: 355px;
+    height: 63px;
     background: #F4F1EB;
-    margin-bottom: 21px;
-
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
 }
 
-.input-box input{
-    border: none;
+.input-box input {
     width: 100%;
     height: 100%;
     background: transparent;
     color: black;
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-size: 15px;
-    font-style: normal;
     font-weight: 619;
-    line-height: normal;
-    padding: 20px;
-    
-
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
-.wrapper2 button{
-    border-radius: 0;
-    width: 288px;
+.wrapper2 .register-link {
+    margin-top: auto;
+}
+
+.wrapper2 button {
+    width: 355px;
     height: 63px;
-    flex-shrink: 0;
-    background:#BEA18D;
+    background: #BEA18D;
     color: black;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.wrapper2 button:active {
+    background: #A08371;
+}
