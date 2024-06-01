@@ -17,35 +17,39 @@ const LoginForm: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const data = {
-            id,
-            password
-        };
+        // const data = {
+        //     id,
+        //     password
+        // };
+        // 서버 요청 없이 회원가입 성공을 시뮬레이션하는 코드
+        console.log('Login success');
+        navigate('/PageFormat'); // 가입 성공 시 로그인 페이지로 이동합니다.
+    }
+    
 
-        try {
-            const response = await fetch('http://localhost:8080/user/find', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+    //     try {
+    //         const response = await fetch('http://localhost:8080/user/find', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(data),
+    //         });
 
-            if (response.ok) {
-                const responseData = await response.json();
-                const { success, id, role } = responseData;
-                if (success) {
-                    navigate('/PageFormat', { state: { id, role } }); // 다음 페이지로 id와 role 정보를 전달합니다.
-                } else {
-                    console.error('Login failed');
-                }
-            } else {
-                console.error('Login failed');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    //         if (response.ok) {
+    //             const responseData = await response.json();
+    //             const { success, id, role } = responseData;
+    //             if (success) {
+    //                 navigate('/PageFormat', { state: { id, role } }); // 다음 페이지로 id와 role 정보를 전달합니다.
+    //             } else {
+    //                 console.error('Login failed');
+    //             }
+    //         } else {
+    //             console.error('Login failed');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //     }
 
     return (
         <div className='wrapper0'>

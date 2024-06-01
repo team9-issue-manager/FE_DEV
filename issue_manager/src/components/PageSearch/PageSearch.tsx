@@ -5,11 +5,13 @@ import PageIssueDetailed from '../PageIssueDetailed/PageIssueDetailed';
 import { Issue } from '../ElementIssueList/ElementIssueList.tsx'
 import { GoSearch } from "react-icons/go";
 import { IoFilter } from "react-icons/io5";
-import { useLocation } from 'react-router-dom';
 
-const PageSearch: React.FC = () => {
-    const location = useLocation();
-    const { id, role } = location.state;
+type PageSearchProps = {
+    id: string;
+    role: string;
+}
+
+const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
     const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
     const [issues, setIssues] = useState<Issue[]>([]);
 
