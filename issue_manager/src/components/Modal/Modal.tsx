@@ -24,7 +24,7 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ isOpen, closeModal, userId}) =>
 
     useEffect(() => {
         // 프로젝트 목록을 받아옴
-        fetch('localhost:8080/project/list')
+        fetch('http://localhost:8080/project/list')
             .then(response => response.json())
             .then(data => setProjects(data.projects))
             .catch(error => console.error('Error fetching projects:', error));
@@ -51,7 +51,7 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ isOpen, closeModal, userId}) =>
 
         // 선택한 프로젝트 번호를 확인하고 서버로 전송
         if (selectedProject) {
-            fetch('localhost:8080/issue/add', {
+            fetch('http://localhost:8080/issue/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,12 +66,12 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ isOpen, closeModal, userId}) =>
             })
                 .then(response => response.json())
                 .then(result => {
-                    if (result.issueNum) {
-                        console.log('이슈 생성 성공:', result);
+                    if (result.success) {
+                        console.log('이슈 생성 성공:');
                         setMessage('이슈 생성 성공');
                         closeModal();
                     } else {
-                        console.error('이슈 생성 실패:', result.result);
+                        console.error('이슈 생성 실패:');
                         setMessage(result.result || '이슈 생성 실패');
                     }
                 })
