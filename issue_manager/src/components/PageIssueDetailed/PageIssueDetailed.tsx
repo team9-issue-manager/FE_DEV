@@ -10,48 +10,50 @@ import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 type PageIssueDetailedProps = {
     issue: Issue;
     onBack: () => void;
+    id: string;
+    role: string;
 }
 
-const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack }) => {
+const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id, role }) => {
     const [showComments, setShowComments] = useState<boolean>(false);
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState<string>('');
 
     // 실제 서버 연결 댓글 목록 보기
-    // const toggleComments = () => {
-    //     fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 setComments(data.comments as Comment[]);
-    //             } else {
-    //                 setComments([]);
-    //             }
-    //         })
-    //         .catch(error => console.error('Error fetching comments:', error));
-    // };
+    const fetchComments = () => {
+        fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    setComments(data.comments as Comment[]);
+                } else {
+                    setComments([]);
+                }
+            })
+            .catch(error => console.error('Error fetching comments:', error));
+    };
 
     // 서버 연결 없이 테스트용 댓글 목록 보기
-    const fetchComments = () => {
-        const testComments = [
-            {
-                issueNum: issue.issueNum,
-                content: "테스트 댓글 1",
-                date: "2024-05-30T11:51:47.825+00:00",
-                commentId: 1,
-                accountId: "testUser1"
-            },
-            {
-                issueNum: issue.issueNum,
-                content: "테스트 댓글 2",
-                date: "2024-05-30T11:57:27.945+00:00",
-                commentId: 2,
-                accountId: "testUser2"
-            }
-        ];
+    // const fetchComments = () => {
+    //     const testComments = [
+    //         {
+    //             issueNum: issue.issueNum,
+    //             content: "테스트 댓글 1",
+    //             date: "2024-05-30T11:51:47.825+00:00",
+    //             commentId: 1,
+    //             accountId: "testUser1"
+    //         },
+    //         {
+    //             issueNum: issue.issueNum,
+    //             content: "테스트 댓글 2",
+    //             date: "2024-05-30T11:57:27.945+00:00",
+    //             commentId: 2,
+    //             accountId: "testUser2"
+    //         }
+    //     ];
 
-        setComments(testComments);
-    };
+    //     setComments(testComments);
+    // };
 
     const toggleComments = () => {
         if (!showComments) {
@@ -61,43 +63,43 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack }) 
     };
 
     // 실제 서버 연결 댓글 추가
-    // const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const newCommentData = {
-    //         issueNum: issue.issueNum,
-    //         content: newComment,
-    //         accountId: "currentUser" // 현재 사용자 ID로 교체 필요
-    //     };
-
-    //     fetch('http://localhost:8080/issue/comments', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(newCommentData),
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setComments([...comments, data]);
-    //             setNewComment('');
-    //         })
-    //         .catch(error => console.error('Error posting comment:', error));
-    // };
-
-    // 테스트용 댓글 추가 기능
     const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const newCommentData: Comment = {
+        const newCommentData = {
             issueNum: issue.issueNum,
             content: newComment,
-            date: new Date().toISOString(),
-            commentId: comments.length + 1, // 임시 ID
-            accountId: "currentUser" // 현재 사용자 ID로 교체 필요
+            accountId: id
         };
 
-        setComments([...comments, newCommentData]);
-        setNewComment('');
+        fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newCommentData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                setComments([...comments, data]);
+                setNewComment('');
+            })
+            .catch(error => console.error('Error posting comment:', error));
     };
+
+    // 테스트용 댓글 추가 기능
+    // const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     const newCommentData: Comment = {
+    //         issueNum: issue.issueNum,
+    //         content: newComment,
+    //         date: new Date().toISOString(),
+    //         commentId: comments.length + 1, // 임시 ID
+    //         accountId: id
+    //     };
+
+    //     setComments([...comments, newCommentData]);
+    //     setNewComment('');
+    // };
 
     return (
         <div>
@@ -124,6 +126,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack }) 
                     <div>// ( role==dev && state==1 ) : [fixed]</div>
                     <div>// ( role==tester && state==2 ) : [resolved] [not fixed]</div>
                     <div>// ( role==pl && state==3 ) : [closed] [not resolved]</div>
+                    <div>{id} / {role}</div>
                     <form className='commentBox' onSubmit={handleCommentSubmit}>
                         <input
                             type='text'
