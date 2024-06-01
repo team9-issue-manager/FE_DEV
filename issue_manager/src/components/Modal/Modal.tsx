@@ -6,7 +6,7 @@ interface ModalPopupProps {
     isOpen: boolean;
     closeModal: () => void;
     userId: string;
-    projectId: number; // 프로젝트 번호를 props로 받습니다.
+    userRole: string; // 프로젝트 번호를 props로 받습니다.
 }
 
 interface Project {
