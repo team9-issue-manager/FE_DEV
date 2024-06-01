@@ -16,14 +16,14 @@ import { VscIssues } from "react-icons/vsc";
 import { PiListPlusFill } from "react-icons/pi";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import { CiMap } from "react-icons/ci";
-import { useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 
 const PageFormat = () => {
     const location = useLocation();
-    const { id, role } = location.state || { id: 'defaultId', role: 'tester' };
+    const navigate = useNavigate();
+    const { id, role } = location.state || { id: 'defaultID', role: 'tester' };
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState('');
     const [activeButton, setActiveButton] = useState('');
     const [ModalisOpen, setModalIsOpen] = useState(false);
 
@@ -33,30 +33,9 @@ const PageFormat = () => {
     };
 
     const handleButtonClick = (component: string, buttonId: string) => {
-        setCurrentComponent(component);
         setActiveButton(buttonId);
+        navigate(`${component}`, { state: { id, role } });
     };
-
-    const renderComponent = () => {
-        switch (currentComponent) {
-            case 'search':
-                return <PageSearch />;
-            case 'inbox':
-                return <span>inbox</span>;
-            case 'myIssue':
-                return <PageMyIssue />;
-            case 'roadMap':
-                return <span>roadMap</span>;
-            case 'statistics':
-                return <span>statistics</span>;
-            case 'ranking':
-                return <span>ranking</span>;
-            case 'notify':
-                return <span>notify</span>;
-            default:
-                return <PageDefault />;
-        }
-    }
 
     return (
         <div className='page'>
@@ -122,7 +101,16 @@ const PageFormat = () => {
                 </button>
             </div>
             <div className='main'>
-                {renderComponent()}
+                <Routes>
+                    <Route path="search" element={<PageSearch />} />
+                    <Route path="inbox" element={<div>Inbox Page</div>} />
+                    <Route path="myIssue" element={<PageMyIssue />} />
+                    <Route path="roadMap" element={<div>Road Map Page</div>} />
+                    <Route path="statistics" element={<div>Statistics Page</div>} />
+                    <Route path="ranking" element={<div>Ranking Page</div>} />
+                    <Route path="notify" element={<div>Notify Page</div>} />
+                    <Route path="/" element={<PageDefault />} />
+                </Routes>
             </div>
             <ModalPopup isOpen={ModalisOpen} closeModal={() => setModalIsOpen(false)} />
         </div>
