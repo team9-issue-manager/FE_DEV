@@ -23,7 +23,6 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
         fetchIssues(searchQuery);
     };
 
-    
     // issue 검색 - 서버용
     // const fetchIssues = (searchQuery: string) => {
     //     fetch('http://localhost:8080/issue/find', {
