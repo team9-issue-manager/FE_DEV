@@ -3,9 +3,7 @@ import './PageFormat.css';
 import PageDefault from '../PageDefault/PageDefault.tsx'
 import PageSearch from '../PageSearch/PageSearch.tsx'
 import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx'
-
 import ModalPopup from '../Modal/Modal';
-
 import { VscGraph } from "react-icons/vsc";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdOutlineStars } from "react-icons/md";
@@ -19,15 +17,13 @@ import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import { CiMap } from "react-icons/ci";
 import { useLocation } from 'react-router-dom';
 
-
 const PageFormat = () => {
     const location = useLocation();
     const { id, role } = location.state;
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
     const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
-    const [ModalisOpen,setModalIsOpen]=useState(false);
-
+    const [ModalisOpen, setModalIsOpen] = useState(false);
 
     const toggleSdaArrow = () => {
         setIsSdaExpanded(!isSdaExpanded);
@@ -69,8 +65,8 @@ const PageFormat = () => {
                         <IoIosArrowForward />
                     </div>
                 </button>
-                 <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
-                     <div>
+                <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
+                    <div>
                         <PiListPlusFill />
                         <span id='newIssueLabel'>New Issue</span>
                     </div>
@@ -128,7 +124,12 @@ const PageFormat = () => {
             <div className='main'>
                 {renderComponent()}
             </div>
-            <ModalPopup isOpen={ModalisOpen} closeModal={() => setModalIsOpen(false)} />
+            <ModalPopup 
+                isOpen={ModalisOpen} 
+                closeModal={() => setModalIsOpen(false)} 
+                userId={id} 
+                projectId={role} 
+            />
         </div>
     );
 };
