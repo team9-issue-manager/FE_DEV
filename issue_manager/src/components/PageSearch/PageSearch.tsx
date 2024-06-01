@@ -73,7 +73,7 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
                 "issueNum": 3,
                 "title": `title matching ${searchQuery}`,
                 "content": "안녕하세요. 반갑습니다.",
-                "date": "2024-05-30T11:43:45.344+00:00",
+                "date": "2024-05-30T11:51:38.414+00:00",
                 "state": 4,
                 "accountId": "tester1",
                 "devId": null,
