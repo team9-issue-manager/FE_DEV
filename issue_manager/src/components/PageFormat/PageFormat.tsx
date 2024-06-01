@@ -21,11 +21,13 @@ import { useLocation } from 'react-router-dom';
 
 const PageFormat = () => {
     const location = useLocation();
-    const { id, role } = location.state || { id: 'defaultId', role: 'tester' };
+    const { id, role } = location.state || { id: 'fff', role: 'fff'};
+    console.log('Location state:', location.state);
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
     const [currentComponent, setCurrentComponent] = useState('');
     const [activeButton, setActiveButton] = useState('');
     const [ModalisOpen, setModalIsOpen] = useState(false);
+
 
 
     const toggleSdaArrow = () => {
