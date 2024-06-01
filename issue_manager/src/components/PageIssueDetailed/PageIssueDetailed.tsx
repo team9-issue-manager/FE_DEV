@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import './PageIssueDetailed.css'
+import React, { useState, useEffect } from 'react';
+import './PageIssueDetailed.css';
 import { Issue } from '../ElementIssueList/ElementIssueList';
-import DisplayCommentList from '../DisplayCommentList/DisplayCommentList.tsx'
+import DisplayCommentList from '../DisplayCommentList/DisplayCommentList.tsx';
 import { Comment } from '../ElementCommentList/ElementCommentList';
-
 import { IoIosArrowBack } from "react-icons/io";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 
@@ -19,51 +18,34 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState<string>('');
 
-    // 실제 서버 연결 댓글 목록 보기
-    const fetchComments = () => {
-        fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    setComments(data.comments as Comment[]);
-                } else {
-                    setComments([]);
-                }
-            })
-            .catch(error => console.error('Error fetching comments:', error));
+    const fetchComments = async () => {
+        try {
+            console.log(4);
+            const response = await fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`);
+            console.log(5);
+            const data = await response.json();
+            console.log(6);
+            if (data.success) {
+                console.log(7-1);
+                setComments(data.comments as Comment[]);
+            } else {
+                console.log(7-2);
+                setComments([]);
+            }
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+        }
     };
 
-    // 서버 연결 없이 테스트용 댓글 목록 보기
-    // const fetchComments = () => {
-    //     const testComments = [
-    //         {
-    //             issueNum: issue.issueNum,
-    //             content: "테스트 댓글 1",
-    //             date: "2024-05-30T11:51:47.825+00:00",
-    //             commentId: 1,
-    //             accountId: "testUser1"
-    //         },
-    //         {
-    //             issueNum: issue.issueNum,
-    //             content: "테스트 댓글 2",
-    //             date: "2024-05-30T11:57:27.945+00:00",
-    //             commentId: 2,
-    //             accountId: "testUser2"
-    //         }
-    //     ];
-
-    //     setComments(testComments);
-    // };
+    useEffect(() => {
+        fetchComments();
+    }, [issue.issueNum]);
 
     const toggleComments = () => {
-        if (!showComments) {
-            fetchComments();
-        }
         setShowComments(!showComments);
     };
 
-    // 실제 서버 연결 댓글 추가
-    const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const newCommentData = {
             issueNum: issue.issueNum,
@@ -71,35 +53,34 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
             accountId: id
         };
 
-        fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newCommentData),
-        })
-            .then(response => response.json())
-            .then(data => {
-                setComments([...comments, data]);
+        try {
+            const response = await fetch(`http://localhost:8080/issue/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newCommentData),
+            });
+
+            const data = await response.json();
+            console.log('New Comment Data:', data); // 서버에서 반환된 데이터 확인
+            console.log('Data success:', data.success);
+            console.log('Data comment:', data.comment);
+            if (data.success && data.comment) {
+                console.log(1);
+                setComments(prevComments => [...prevComments, data.comment as Comment]);
+                console.log(2);
                 setNewComment('');
-            })
-            .catch(error => console.error('Error posting comment:', error));
+                console.log(3);
+                fetchComments(); // 새로운 댓글 추가 후 모든 댓글 다시 가져오기
+                console.log(8);
+            } else {
+                console.error('Invalid comment data:', data);
+            }
+        } catch (error) {
+            console.error('Error posting comment:', error);
+        }
     };
-
-    // 테스트용 댓글 추가 기능
-    // const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const newCommentData: Comment = {
-    //         issueNum: issue.issueNum,
-    //         content: newComment,
-    //         date: new Date().toISOString(),
-    //         commentId: comments.length + 1, // 임시 ID
-    //         accountId: id
-    //     };
-
-    //     setComments([...comments, newCommentData]);
-    //     setNewComment('');
-    // };
 
     return (
         <div>
@@ -120,12 +101,6 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                     <div>Description: {issue.content}</div>
                     <div className='divider'></div>
                     <div>Activity</div>
-                    <div>// ( role==pl && state==0 ) : Dev 배정: dev 목록에서 고르기.</div>
-                    <div>// pl이 dev 배정하면 상태는 자동으로 new에서 assigned로</div>
-                    <div>State 변경:</div>
-                    <div>// ( role==dev && state==1 ) : [fixed]</div>
-                    <div>// ( role==tester && state==2 ) : [resolved] [not fixed]</div>
-                    <div>// ( role==pl && state==3 ) : [closed] [not resolved]</div>
                     <div>{id} / {role}</div>
                     <form className='commentBox' onSubmit={handleCommentSubmit}>
                         <input
@@ -135,6 +110,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
                         />
+                        <button type='submit'>Submit</button>
                     </form>
                     <button className='toggleCommentButton' onClick={toggleComments}>
                         {showComments ? <BiSolidDownArrow /> : <BiSolidUpArrow />}
