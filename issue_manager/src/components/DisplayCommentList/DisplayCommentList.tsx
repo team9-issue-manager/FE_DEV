@@ -12,7 +12,7 @@ const DisplayCommentList: React.FC<DisplayCommentListProps> = ({ comments }) => 
             {comments.length > 0 ? (
                 comments.map(comment => (
                     <ElementCommentList
-                        key={comment.commentId}
+                        key={comment.commentNum}
                         comment={comment} />
                 ))
             ) : (

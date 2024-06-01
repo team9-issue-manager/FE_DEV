@@ -13,12 +13,23 @@ type PageIssueDetailedProps = {
     role: string;
 }
 
+const getStateString = (state: number): string => {
+    switch(state) {
+        case 0: return 'New';
+        case 1: return 'Assigned';
+        case 2: return 'Fixed';
+        case 3: return 'Resolved';
+        case 4: return 'Closed';
+        default: return 'Unknown';
+    }
+}
+
 const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id, role }) => {
     const [showComments, setShowComments] = useState<boolean>(false);
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState<string>('');
 
-    // comment 등록 - 서버용
+    // comment 검색 - 서버용
     // const fetchComments = useCallback(async () => {
     //     try {
     //         const response = await fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`);
@@ -28,7 +39,6 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     //         } else {
     //             setComments([]);
     //         }
-    //         setComments(data.comments);
     //     } catch (error) {
     //         console.error('Error fetching comments:', error);
     //     }
@@ -37,7 +47,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
 
     // comment 검색 - 테스트용
     const fetchComments = useCallback(async () => {
-        try {          
+        try {
             const localComments: Comment[] = [
                 {
                     issueNum: issue.issueNum,
@@ -138,7 +148,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     //         });
 
     //         const data = await response.json();
-    //         if (data.success) {
+    //         if (data.success as boolean) {
     //             alert('Developer assigned successfully');
     //         } else {
     //             alert('Failed to assign developer');
@@ -163,6 +173,46 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     };
     // assign dev - 테스트용
 
+    // change state - 서버용
+    // const handleChangeState = async () => {
+    //     const changeStateData = {
+    //         issueNum: issue.issueNum,
+    //         accountId: id
+    //     };
+
+    //     try {
+    //         const response = await fetch(`http://localhost:8080/issue/changeState`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(changeStateData),
+    //         });
+
+    //         const data = await response.json();
+    //         if (data.success as boolean) {
+    //             alert('Changed state successfully');
+    //         } else {
+    //             alert('Failed to change state');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error changing state:', error);
+    //         alert('Error changing state');
+    //     }
+    // };
+    // change state - 서버용
+
+    // change state - 테스트용
+    const handleChangeState = async () => {
+        try {
+            alert('Changed state successfully (test)');
+        } catch (error) {
+            console.error('Error changing state:', error);
+            alert('Error changing state');
+        }
+    };
+    // change state - 테스트용
+
     return (
         <div>
             <div className='topBanner'>
@@ -174,26 +224,41 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                     <span>Back to List</span>
                 </button>
                 <div className='containerIssueDetailed'>
+                    <div className='divider'></div>
+                    <div className="issueTitle">Issue Title: {issue.title}</div>
                     <div>Project: {issue.projectNum}</div>
-                    <div>Issue Title: {issue.title}</div>
                     <div>Reporter: {issue.accountId}</div>
                     <div>Reported Date: {issue.date}</div>
                     <div>Assignee/Fixer: {issue.devId ? issue.devId : 'N/A'} </div>
-                    <div>State: {issue.state}</div>
-                    <div>Description: {issue.content}</div>
+                    <div>State: {getStateString(issue.state)}</div>
+                    <div className='description'>
+                        Description:
+                        <div>{issue.content}</div>
+                    </div>
                     <div className='divider'></div>
-                    <div>Activity</div>
-                    {role === 'pl' && (
+                    <div className='activity'>Activity</div>
+                    {role === 'pl' && issue.state === 0 && (
                         <div className='containerAssignDev'>
                             <div>Assign Developer: </div>
                             <button className='assignDevButton' onClick={handleAssignDev}>Assign Developer</button>
                         </div>
                     )}
-                    <div>{id} / {role}</div>
+                    {issue.state !== 4 ? (
+                        <div className='containerChangeState'>
+                            <div>Change State: </div>
+                            <button className='changeState' onClick={handleChangeState}>Change to {getStateString(issue.state + 1)}</button>
+                        </div>
+                    ) : (
+                        <div className='containerChangeState'>
+                            <div>Reopen State: </div>
+                            <button className='changeState' onClick={handleChangeState}>Reopen Issue</button>
+                        </div>
+                    )}
+                    <div>Add Comment: </div>
                     <form className='commentBox' onSubmit={handleCommentSubmit}>
                         <input
                             type='text'
-                            placeholder='Add Comment...'
+                            placeholder='Enter Comment...'
                             name='comment'
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
