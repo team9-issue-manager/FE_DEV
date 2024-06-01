@@ -24,7 +24,6 @@ const PageFormat = () => {
     const [activeButton, setActiveButton] = useState('');
     const [ModalisOpen, setModalIsOpen] = useState(false);
 
-    
     const toggleSdaArrow = () => {
         setIsSdaExpanded(!isSdaExpanded);
     };
