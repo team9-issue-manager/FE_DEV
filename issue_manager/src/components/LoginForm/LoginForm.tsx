@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
-import './SignupForm.css';
-import Dropdown from '../Dropdown/Dropdown';
-import DropdownItem from '../DropdownItem/DropdownItem';
+import './LoginForm.css';
+import logo_img from '../Assets/logo.png';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const SignupForm: React.FC = () => {
+const LoginForm: React.FC = () => {
     const [id, setId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [role, setRole] = useState<string>('');
     const navigate = useNavigate();
+    const [activeButton, setActiveButton] = useState(' ');
 
-    const handleItemClick = (item: string) => {
-        setRole(item);
-        console.log(`${item} clicked`);
+    const handleButtonClick = (component: string, buttonId: string) => {
+        setActiveButton(buttonId);
     };
 
-    const handleSubmit = async (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const data = {
             id,
-            password,
-            role,
+            password
         };
 
+        console.log('Simulating login success');
+        navigate('/PageFormat');
+
+        /*
         try {
-            const response = await fetch('http://localhost:8080/user/signup', {
+            const response = await fetch('http://localhost:8080/user/find', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,30 +35,31 @@ const SignupForm: React.FC = () => {
                 body: JSON.stringify(data),
             });
 
-            const result = await response.json();
-            if (result.success) {
-                console.log('Signup successful');
-                navigate('/LoginFormat'); // 회원가입이 성공하면 로그인 페이지로 이동
+            if (response.ok) {
+                console.log('Login successful');
+                navigate('/PageFormat'); // 로그인이 성공하면 PageFormat 페이지로 이동합니다.
             } else {
-                console.error(result.result); // 회원가입이 실패하면 실패 메시지 출력
+                console.error('Login failed');
             }
         } catch (error) {
             console.error('Error:', error);
         }
+        */
     };
 
     return (
         <div className='wrapper0'>
             <div className='wrapper1'>
-                <form action=''>
-                    <p>Already have an account?</p>
-                    <div className='register-link'>
-                        <p><a href="#">Log in</a></p> {/* 클릭 시 로그인 페이지로 이동 */}
-                    </div>
+                <form>
+                    <p>Don't have an account?</p>
+                    <p>
+                        <Link to="/signup">Register</Link>
+                    </p>
                 </form>
             </div>
             <div className='wrapper2'>
                 <form onSubmit={handleSubmit}>
+                    <img src={logo_img} alt="Logo" width="282px" height="192px" />
                     <div className="input-box">
                         <input
                             type="text"
@@ -75,25 +78,15 @@ const SignupForm: React.FC = () => {
                             required
                         />
                     </div>
-                    <div className="role-select">
-                        <Dropdown
-                            buttonText="Role"
-                            content={
-                                <div>
-                                    <DropdownItem onClick={() => handleItemClick('tester')}>tester</DropdownItem>
-                                    <DropdownItem onClick={() => handleItemClick('pl')}>pl</DropdownItem>
-                                    <DropdownItem onClick={() => handleItemClick('dev')}>dev</DropdownItem>
-                                </div>
-                            }
-                            onSelect={handleItemClick}
-                            selectedItem={role}
-                        />
-                    </div>
-                    <button type="submit">Sign Up</button>
+                    <button type="submit" id={activeButton === 'loginsuccess' ? 'active' : ''} onClick={() => handleButtonClick('loginsuccess', 'loginsuccess')}>
+                        <div className='buttonContent'>
+                            <span>Login</span>
+                        </div>
+                    </button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default SignupForm;
+export default LoginForm;

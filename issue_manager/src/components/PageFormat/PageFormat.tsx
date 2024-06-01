@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './PageFormat.css';
-import PageDefault from '../PageDefault/PageDefault.tsx';
-import PageSearch from '../PageSearch/PageSearch.tsx';
-import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx';
+import PageDefault from '../PageDefault/PageDefault.tsx'
+import PageSearch from '../PageSearch/PageSearch.tsx'
+import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx'
+
 import ModalPopup from '../Modal/Modal';
 
 import { VscGraph } from "react-icons/vsc";
@@ -12,7 +13,7 @@ import { GoSearch } from "react-icons/go";
 import { RiInbox2Fill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { VscIssues } from "react-icons/vsc";
-// simport { PiListPlusFill } from "react-icons/pi";
+import { PiListPlusFill } from "react-icons/pi";
 import { IoIosArrowForward } from "react-icons/io";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import { CiMap } from "react-icons/ci";
@@ -55,7 +56,7 @@ const PageFormat = () => {
     }
 
     return (
-        <div>
+        <div className='page'>
             <div className='sideMenu'>
                 <button>
                     <div id='buttonUsernameContent'>
@@ -64,12 +65,12 @@ const PageFormat = () => {
                         <IoIosArrowForward />
                     </div>
                 </button>
-                 {/* <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
+                 <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
                      <div>
                         <PiListPlusFill />
                         <span id='newIssueLabel'>New Issue</span>
                     </div>
-                </button> */}
+                </button>
                 <button id={activeButton === 'search' ? 'active' : ' '} onClick={() => handleButtonClick('search', 'search')}>
                     <div className='buttonContent'>
                         <GoSearch />

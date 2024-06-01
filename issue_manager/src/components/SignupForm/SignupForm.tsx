@@ -1,51 +1,53 @@
 import React, { useState } from 'react';
 import './SignupForm.css';
-import Dropdown from '../Dropdown/Dropdown';
-import DropdownItem from '../DropdownItem/DropdownItem';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const SignupForm = () => {
-    const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능 사용
+    const [activeButton, setActiveButton] = useState(' ');
+    const navigate = useNavigate();
+
+    const handleButtonClick = (component: string, buttonId: string) => {
+        setActiveButton(buttonId);
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+        event.preventDefault();
 
-      const id = (event.currentTarget.elements.namedItem('id') as HTMLInputElement).value;
-      const password = (event.currentTarget.elements.namedItem('password') as HTMLInputElement).value;
-      const role = (event.currentTarget.elements.namedItem('dropdownbox') as HTMLSelectElement).value;
+        const id = (event.currentTarget.elements.namedItem('id') as HTMLInputElement).value;
+        const password = (event.currentTarget.elements.namedItem('password') as HTMLInputElement).value;
+        const role = (event.currentTarget.elements.namedItem('dropdownbox') as HTMLSelectElement).value;
 
-  
-      const data = {
-          id,
-          password,
-          role
-      };
-  
-      try {
-          const response = await fetch('http://localhost:8080/user/signup', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(data),
-          });
-  
-          if (response.ok) {
-              const responseData = await response.json();
-              if (responseData.success) {
-                  console.log('Signup successful');
-                  navigate('/LoginPage');
-              } else {
-                  console.error('Signup failed:', responseData.result);
-              }
-          } else {
-              console.error('Signup failed');
-          }
-      } catch (error) {
-          console.error('Error:', error);
-      }
-  };
-  
+        const data = {
+            id,
+            password,
+            role
+        };
+
+        console.log('Simulating register success');
+        navigate('/');
+
+        /*
+        try {
+            const response = await fetch('http://localhost:8080/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                console.log('Register successful');
+                navigate('/'); // 가입 성공 시 로그인 페이지로 이동합니다.
+            } else {
+                console.error('Register failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        */
+    };
 
     return (
         <div className='wrapper0'>
@@ -53,7 +55,7 @@ const SignupForm = () => {
                 <form action=''>
                     <p>Already have an account?</p>
                     <div className='register-link'>
-                        <p><a href="#">Log in</a></p> {/* 클릭 시 로그인 페이지로 이동 */}
+                        <Link to="/">Log in</Link>
                     </div>
                 </form>
             </div>
@@ -82,7 +84,11 @@ const SignupForm = () => {
                             <option value="tester">tester</option>
                         </select>
                     </div>
-                    <button type="submit">Sign Up</button>
+                    <button type="submit" id={activeButton === 'registersuccess' ? 'active' : ''} onClick={() => handleButtonClick('registersuccess', 'registersuccess')}>
+                        <div className='buttonContent'>
+                            <span>Sign up</span>
+                        </div>
+                    </button>
                 </form>
             </div>
         </div>
