@@ -21,7 +21,6 @@ const PageFormat = () => {
     const location = useLocation();
     // const { id, role } = location.state;
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState(' ');
     const [activeButton, setActiveButton] = useState(' ');
     const [ModalisOpen, setModalIsOpen] = useState(false);
 
@@ -58,13 +57,10 @@ const PageFormat = () => {
     return (
         <div className='page'>
             <div className='sideMenu'>
-                <button>
-                    <div id='buttonUsernameContent'>
-                        <FaRegUser />
-                        <span>{id}/{role}</span>
-                        <IoIosArrowForward />
-                    </div>
-                </button>
+                <div id='usernameContent'>
+                    <FaRegUser />
+                    <span>{id} / {role}</span>
+                </div>
                 <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
                     <div>
                         <PiListPlusFill />
@@ -124,11 +120,11 @@ const PageFormat = () => {
             <div className='main'>
                 {renderComponent()}
             </div>
-            <ModalPopup 
-                isOpen={ModalisOpen} 
-                closeModal={() => setModalIsOpen(false)} 
-                userId={id} 
-                projectId={role} 
+            <ModalPopup
+                isOpen={ModalisOpen}
+                closeModal={() => setModalIsOpen(false)}
+                userId={id}
+                projectId={role}
             />
         </div>
     );
