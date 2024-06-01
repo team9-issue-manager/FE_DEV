@@ -21,6 +21,7 @@ const LoginForm: React.FC = () => {
             id,
             password
         };
+
         try {
             const response = await fetch('http://localhost:8080/user/find', {
                 method: 'POST',

@@ -65,7 +65,7 @@ const PageFormat = () => {
                 <button>
                     <div id='buttonUsernameContent'>
                         <FaRegUser />
-                        <span>{id}/{role}</span>
+                        {/* <span>{id}/{role}</span> */}
                         <IoIosArrowForward />
                     </div>
                 </button>
