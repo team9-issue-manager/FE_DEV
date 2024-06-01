@@ -21,32 +21,32 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     const fetchComments = useCallback(async () => {
         try {
             // 주석 처리: 서버 요청 대신 로컬 데이터를 사용합니다.
-            // const response = await fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`);
-            // const data = await response.json();
-            // if (data.success) {
-            //     setComments(data.comments as Comment[]);
-            // } else {
-            //     setComments([]);
-            // }
+            const response = await fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`);
+            const data = await response.json();
+            if (data.success) {
+                setComments(data.comments as Comment[]);
+            } else {
+                setComments([]);
+            }
             
             // 테스트용 로컬 데이터
-            const localComments: Comment[] = [
-                {
-                    issueNum: issue.issueNum,
-                    content: 'Test comment 1',
-                    date: new Date().toISOString(),
-                    commentId: 1,
-                    accountId: 'user1'
-                },
-                {
-                    issueNum: issue.issueNum,
-                    content: 'Test comment 2',
-                    date: new Date().toISOString(),
-                    commentId: 2,
-                    accountId: 'user2'
-                }
-            ];
-            setComments(localComments);
+            // const localComments: Comment[] = [
+            //     {
+            //         issueNum: issue.issueNum,
+            //         content: 'Test comment 1',
+            //         date: new Date().toISOString(),
+            //         commentId: 1,
+            //         accountId: 'user1'
+            //     },
+            //     {
+            //         issueNum: issue.issueNum,
+            //         content: 'Test comment 2',
+            //         date: new Date().toISOString(),
+            //         commentId: 2,
+            //         accountId: 'user2'
+            //     }
+            // ];
+            // setComments(localComments);
         } catch (error) {
             console.error('Error fetching comments:', error);
         }
@@ -72,25 +72,25 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
 
         try {
             // 주석 처리: 서버 요청 대신 로컬 상태를 업데이트합니다.
-            // const response = await fetch(`http://localhost:8080/issue/comments`, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(newCommentData),
-            // });
+            const response = await fetch(`http://localhost:8080/issue/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newCommentData),
+            });
 
-            // const data = await response.json();
-            // if (data.success && data.comment) {
-            //     setComments(prevComments => [...prevComments, data.comment as Comment]);
-            //     setNewComment('');
-            // } else {
-            //     console.error('Invalid comment data:', data);
-            // }
+            const data = await response.json();
+            if (data.success && data.comment) {
+                setComments(prevComments => [...prevComments, data.comment as Comment]);
+                setNewComment('');
+            } else {
+                console.error('Invalid comment data:', data);
+            }
 
-            // 테스트용 로컬 상태 업데이트
-            setComments(prevComments => [...prevComments, newCommentData]);
-            setNewComment('');
+            // // 테스트용 로컬 상태 업데이트
+            // setComments(prevComments => [...prevComments, newCommentData]);
+            // setNewComment('');
         } catch (error) {
             console.error('Error posting comment:', error);
         }
@@ -103,24 +103,26 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
         };
 
         try {
+            console.log(1);
             // 주석 처리: 서버 요청 대신 알림을 표시합니다.
-            // const response = await fetch(`http://localhost:8080/issue/assignDevAuto`, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(assignDevData),
-            // });
+            const response = await fetch(`http://localhost:8080/issue/assignDevAuto`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(assignDevData),
+            });
+            console.log(2);
+            const data = await response.json();
+            console.log("data.success: ", data.success);
+            if (data.success) {
+                alert('Developer assigned successfully');
+            } else {
+                alert('Failed to assign developer');
+            }
 
-            // const data = await response.json();
-            // if (data.success) {
-            //     alert('Developer assigned successfully');
-            // } else {
-            //     alert('Failed to assign developer');
-            // }
-
-            // 테스트용 알림
-            alert('Developer assigned successfully (test)');
+        //     // 테스트용 알림
+        //     alert('Developer assigned successfully (test)');
         } catch (error) {
             console.error('Error assigning developer:', error);
             alert('Error assigning developer');

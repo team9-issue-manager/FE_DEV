@@ -1,0 +1,62 @@
+.authorize-container {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.authorize-container h1 {
+    text-align: center;
+}
+
+.request-list {
+    margin-top: 20px;
+}
+
+.request-item span {
+    margin-right: 10px;
+}
+
+.request-item button:hover {
+    background-color: transparent;
+}
+
+.request-item {
+    position: relative;
+    background-color: #222;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.request-item:not(:last-child):after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: calc(100% - 20px);
+    height: 1px;
+    background-color: white;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: space-between; /* 각 버튼을 오른쪽과 왼쪽 끝으로 배치 */
+}
+
+.accept-button,
+.reject-button {
+    background: white;
+    background-color: transparent;
+    color: black;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.accept-button:hover,
+.reject-button:hover {
+    background-color: white;
+    color: black;
+}
