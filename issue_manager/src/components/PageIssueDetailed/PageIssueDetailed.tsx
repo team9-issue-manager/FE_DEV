@@ -18,39 +18,48 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState<string>('');
 
+    // comment 등록 - 서버용
+    // const fetchComments = useCallback(async () => {
+    //     try {
+    //         const response = await fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`);
+    //         const data = await response.json();
+    //         if (data.success) {
+    //             setComments(data.comments as Comment[]);
+    //         } else {
+    //             setComments([]);
+    //         }
+    //         setComments(data.comments);
+    //     } catch (error) {
+    //         console.error('Error fetching comments:', error);
+    //     }
+    // }, [issue.issueNum]);
+    // comment 검색 - 서버용
+
+    // comment 검색 - 테스트용
     const fetchComments = useCallback(async () => {
-        try {
-            // 주석 처리: 서버 요청 대신 로컬 데이터를 사용합니다.
-            const response = await fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`);
-            const data = await response.json();
-            if (data.success) {
-                setComments(data.comments as Comment[]);
-            } else {
-                setComments([]);
-            }
-            
-            // 테스트용 로컬 데이터
-            // const localComments: Comment[] = [
-            //     {
-            //         issueNum: issue.issueNum,
-            //         content: 'Test comment 1',
-            //         date: new Date().toISOString(),
-            //         commentId: 1,
-            //         accountId: 'user1'
-            //     },
-            //     {
-            //         issueNum: issue.issueNum,
-            //         content: 'Test comment 2',
-            //         date: new Date().toISOString(),
-            //         commentId: 2,
-            //         accountId: 'user2'
-            //     }
-            // ];
-            // setComments(localComments);
+        try {          
+            const localComments: Comment[] = [
+                {
+                    issueNum: issue.issueNum,
+                    content: 'Test comment 1',
+                    date: new Date().toISOString(),
+                    commentNum: 1,
+                    accountId: 'user1'
+                },
+                {
+                    issueNum: issue.issueNum,
+                    content: 'Test comment 2',
+                    date: new Date().toISOString(),
+                    commentNum: 2,
+                    accountId: 'user2'
+                }
+            ];
+            setComments(localComments);
         } catch (error) {
             console.error('Error fetching comments:', error);
         }
     }, [issue.issueNum]);
+    // comment 검색 - 테스트용
 
     useEffect(() => {
         fetchComments();
@@ -60,74 +69,99 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
         setShowComments(!showComments);
     };
 
+    // comment 등록 - 서버용
+    // const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     const newCommentData = {
+    //         issueNum: issue.issueNum,
+    //         content: newComment,
+    //         accountId: id
+    //     };
+
+    //     try {
+    //         const response = await fetch(`http://localhost:8080/issue/comments`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(newCommentData),
+    //         });
+
+    //         const data = await response.json();
+    //         if (data.success && data.comment) {
+    //             setComments(prevComments => [...prevComments, data.comment as Comment]);
+    //             setNewComment('');
+    //         } else {
+    //             console.error('Invalid comment data:', data);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error posting comment:', error);
+    //     }
+    // };
+    // comment 등록 - 서버용
+
+
+    // comment 등록 - 테스트용
     const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const newCommentData: Comment = {
             issueNum: issue.issueNum,
             content: newComment,
             date: new Date().toISOString(),
-            commentId: comments.length + 1,  // 임시로 commentId를 설정합니다.
+            commentNum: comments.length + 1,  // 임시로 commentId를 설정합니다.
             accountId: id
         };
 
         try {
-            // 주석 처리: 서버 요청 대신 로컬 상태를 업데이트합니다.
-            const response = await fetch(`http://localhost:8080/issue/comments`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newCommentData),
-            });
-
-            const data = await response.json();
-            if (data.success && data.comment) {
-                setComments(prevComments => [...prevComments, data.comment as Comment]);
-                setNewComment('');
-            } else {
-                console.error('Invalid comment data:', data);
-            }
-
-            // // 테스트용 로컬 상태 업데이트
-            // setComments(prevComments => [...prevComments, newCommentData]);
-            // setNewComment('');
+            setComments(prevComments => [...prevComments, newCommentData]);
+            setNewComment('');
         } catch (error) {
             console.error('Error posting comment:', error);
         }
-    };
+    }
+    // comment 등록 - 테스트용
 
+    // assign dev - 서버용
+    // const handleAssignDev = async () => {
+    //     const assignDevData = {
+    //         accountid: id,
+    //         issueNum: issue.issueNum,
+    //     };
+
+    //     try {
+    //         const response = await fetch(`http://localhost:8080/issue/assignDevAuto`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(assignDevData),
+    //         });
+
+    //         const data = await response.json();
+    //         if (data.success) {
+    //             alert('Developer assigned successfully');
+    //         } else {
+    //             alert('Failed to assign developer');
+    //         }
+
+    //         alert('Developer assigned successfully (test)');
+    //     } catch (error) {
+    //         console.error('Error assigning developer:', error);
+    //         alert('Error assigning developer');
+    //     }
+    // };
+    // assign dev - 서버용
+
+    // assign dev - 테스트용
     const handleAssignDev = async () => {
-        const assignDevData = {
-            accountid: id,
-            issueNum: issue.issueNum,
-        };
-
         try {
-            console.log(1);
-            // 주석 처리: 서버 요청 대신 알림을 표시합니다.
-            const response = await fetch(`http://localhost:8080/issue/assignDevAuto`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(assignDevData),
-            });
-            console.log(2);
-            const data = await response.json();
-            console.log("data.success: ", data.success);
-            if (data.success) {
-                alert('Developer assigned successfully');
-            } else {
-                alert('Failed to assign developer');
-            }
-
-        //     // 테스트용 알림
-        //     alert('Developer assigned successfully (test)');
+            alert('Developer assigned successfully (test)');
         } catch (error) {
             console.error('Error assigning developer:', error);
             alert('Error assigning developer');
         }
     };
+    // assign dev - 테스트용
 
     return (
         <div>
@@ -142,17 +176,18 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                 <div className='containerIssueDetailed'>
                     <div>Project: {issue.projectNum}</div>
                     <div>Issue Title: {issue.title}</div>
-                    <div>Created by: {issue.accountId}</div>
-                    <div>Created Date: {issue.date}</div>
+                    <div>Reporter: {issue.accountId}</div>
+                    <div>Reported Date: {issue.date}</div>
+                    <div>Assignee/Fixer: {issue.devId ? issue.devId : 'N/A'} </div>
                     <div>State: {issue.state}</div>
                     <div>Description: {issue.content}</div>
                     <div className='divider'></div>
                     <div>Activity</div>
                     {role === 'pl' && (
-                        <>
-                            <div>Assign Dev: </div>
+                        <div className='containerAssignDev'>
+                            <div>Assign Developer: </div>
                             <button className='assignDevButton' onClick={handleAssignDev}>Assign Developer</button>
-                        </>
+                        </div>
                     )}
                     <div>{id} / {role}</div>
                     <form className='commentBox' onSubmit={handleCommentSubmit}>
