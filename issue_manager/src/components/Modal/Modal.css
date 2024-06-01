@@ -4,22 +4,107 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: transparent; /* 반투명 배경 제거 */
+    background-color: rgba(0, 0, 0, 0.75);
 }
 
 .ModalContent {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #F4F1EB; /* 투명도 제거 */
-    padding: 20px;
-    border-radius: 20px;
-    outline: none;
     width: 819px;
     height: 475px;
+    position: absolute;
+    background: #F4F1EB;
+    padding: 30px;
+    border-radius: 20px;
 }
 
-.wrapper1 modalclose{
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-id {
+    color: black;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.modal-close {
     align-items: end;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #BEA18D;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+#title,
+#content {
+    width: 100%;
+    height: 100%;
+    color: black;
+    font-family: Inter;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 600;
+    border: transparent;
+}
+
+#tag {
+    background-color: transparent;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #333;
+    /* 글자 색 변경 */
+}
+
+#title::placeholder,
+#content::placeholder{
+    color: #BEA18D;
+}
+#tag::placeholder {
+    color: black;
+    /* placeholder 글자 색 변경 */
+}
+
+#content {
+    height: 100px;
+    resize: none;
+}
+
+.submit-button {
+    width: 127px;
+    height:26px;
+    padding: 10px;
+    background: #BEA18D;
+    border: none;
+    border-radius:8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background: transparent;
+    text-align: center;
+}
+
+.message {
+    margin-top: 10px;
+    color: red;
+    /* 메시지 색상 */
 }
