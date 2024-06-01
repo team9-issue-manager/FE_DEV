@@ -14,7 +14,6 @@ import { RiInbox2Fill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { VscIssues } from "react-icons/vsc";
 import { PiListPlusFill } from "react-icons/pi";
-import { IoIosArrowForward } from "react-icons/io";
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import { CiMap } from "react-icons/ci";
 import { useLocation } from 'react-router-dom';
@@ -22,11 +21,11 @@ import { useLocation } from 'react-router-dom';
 
 const PageFormat = () => {
     const location = useLocation();
-    // const { id, role } = location.state;
+    const { id, role } = location.state || { id: 'defaultId', role: 'tester' };
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
-    const [currentComponent, setCurrentComponent] = useState(' ');
-    const [activeButton, setActiveButton] = useState(' ');
-    const [ModalisOpen,setModalIsOpen]=useState(false);
+    const [currentComponent, setCurrentComponent] = useState('');
+    const [activeButton, setActiveButton] = useState('');
+    const [ModalisOpen, setModalIsOpen] = useState(false);
 
 
     const toggleSdaArrow = () => {
@@ -62,15 +61,12 @@ const PageFormat = () => {
     return (
         <div className='page'>
             <div className='sideMenu'>
-                <button>
-                    <div id='buttonUsernameContent'>
-                        <FaRegUser />
-                        <span>{id}/{role}</span>
-                        <IoIosArrowForward />
-                    </div>
-                </button>
-                 <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
-                     <div>
+                <div id='usernameContent'>
+                    <FaRegUser />
+                    <span>{id} / {role}</span>
+                </div>
+                <button id='newIssueButton' onClick={() => setModalIsOpen(true)}>
+                    <div>
                         <PiListPlusFill />
                         <span id='newIssueLabel'>New Issue</span>
                     </div>
