@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './PageIssueDetailed.css';
 import { Issue } from '../ElementIssueList/ElementIssueList';
 import DisplayCommentList from '../DisplayCommentList/DisplayCommentList.tsx';
@@ -18,28 +18,43 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState<string>('');
 
-    const fetchComments = async () => {
+    const fetchComments = useCallback(async () => {
         try {
-            console.log(4);
-            const response = await fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`);
-            console.log(5);
-            const data = await response.json();
-            console.log(6);
-            if (data.success) {
-                console.log(7-1);
-                setComments(data.comments as Comment[]);
-            } else {
-                console.log(7-2);
-                setComments([]);
-            }
+            // 주석 처리: 서버 요청 대신 로컬 데이터를 사용합니다.
+            // const response = await fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`);
+            // const data = await response.json();
+            // if (data.success) {
+            //     setComments(data.comments as Comment[]);
+            // } else {
+            //     setComments([]);
+            // }
+            
+            // 테스트용 로컬 데이터
+            const localComments: Comment[] = [
+                {
+                    issueNum: issue.issueNum,
+                    content: 'Test comment 1',
+                    date: new Date().toISOString(),
+                    commentId: 1,
+                    accountId: 'user1'
+                },
+                {
+                    issueNum: issue.issueNum,
+                    content: 'Test comment 2',
+                    date: new Date().toISOString(),
+                    commentId: 2,
+                    accountId: 'user2'
+                }
+            ];
+            setComments(localComments);
         } catch (error) {
             console.error('Error fetching comments:', error);
         }
-    };
+    }, [issue.issueNum]);
 
     useEffect(() => {
         fetchComments();
-    }, [issue.issueNum]);
+    }, [fetchComments]);
 
     const toggleComments = () => {
         setShowComments(!showComments);
@@ -47,38 +62,68 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
 
     const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const newCommentData = {
+        const newCommentData: Comment = {
             issueNum: issue.issueNum,
             content: newComment,
+            date: new Date().toISOString(),
+            commentId: comments.length + 1,  // 임시로 commentId를 설정합니다.
             accountId: id
         };
 
         try {
-            const response = await fetch(`http://localhost:8080/issue/comments`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newCommentData),
-            });
+            // 주석 처리: 서버 요청 대신 로컬 상태를 업데이트합니다.
+            // const response = await fetch(`http://localhost:8080/issue/comments`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(newCommentData),
+            // });
 
-            const data = await response.json();
-            console.log('New Comment Data:', data); // 서버에서 반환된 데이터 확인
-            console.log('Data success:', data.success);
-            console.log('Data comment:', data.comment);
-            if (data.success && data.comment) {
-                console.log(1);
-                setComments(prevComments => [...prevComments, data.comment as Comment]);
-                console.log(2);
-                setNewComment('');
-                console.log(3);
-                fetchComments(); // 새로운 댓글 추가 후 모든 댓글 다시 가져오기
-                console.log(8);
-            } else {
-                console.error('Invalid comment data:', data);
-            }
+            // const data = await response.json();
+            // if (data.success && data.comment) {
+            //     setComments(prevComments => [...prevComments, data.comment as Comment]);
+            //     setNewComment('');
+            // } else {
+            //     console.error('Invalid comment data:', data);
+            // }
+
+            // 테스트용 로컬 상태 업데이트
+            setComments(prevComments => [...prevComments, newCommentData]);
+            setNewComment('');
         } catch (error) {
             console.error('Error posting comment:', error);
+        }
+    };
+
+    const handleAssignDev = async () => {
+        const assignDevData = {
+            accountid: id,
+            issueNum: issue.issueNum,
+        };
+
+        try {
+            // 주석 처리: 서버 요청 대신 알림을 표시합니다.
+            // const response = await fetch(`http://localhost:8080/issue/assignDevAuto`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(assignDevData),
+            // });
+
+            // const data = await response.json();
+            // if (data.success) {
+            //     alert('Developer assigned successfully');
+            // } else {
+            //     alert('Failed to assign developer');
+            // }
+
+            // 테스트용 알림
+            alert('Developer assigned successfully (test)');
+        } catch (error) {
+            console.error('Error assigning developer:', error);
+            alert('Error assigning developer');
         }
     };
 
@@ -101,6 +146,12 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                     <div>Description: {issue.content}</div>
                     <div className='divider'></div>
                     <div>Activity</div>
+                    {role === 'pl' && (
+                        <>
+                            <div>Assign Dev: </div>
+                            <button className='assignDevButton' onClick={handleAssignDev}>Assign Developer</button>
+                        </>
+                    )}
                     <div>{id} / {role}</div>
                     <form className='commentBox' onSubmit={handleCommentSubmit}>
                         <input
@@ -110,7 +161,6 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
                         />
-                        <button type='submit'>Submit</button>
                     </form>
                     <button className='toggleCommentButton' onClick={toggleComments}>
                         {showComments ? <BiSolidDownArrow /> : <BiSolidUpArrow />}

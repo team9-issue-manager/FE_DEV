@@ -7,32 +7,25 @@ import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx'
 import ModalPopup from '../Modal/Modal';
 
 import { VscGraph } from "react-icons/vsc";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdOutlineStars } from "react-icons/md";
 import { GoSearch } from "react-icons/go";
 import { RiInbox2Fill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { VscIssues } from "react-icons/vsc";
 import { PiListPlusFill } from "react-icons/pi";
-import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import { CiMap } from "react-icons/ci";
+import { CiLock } from "react-icons/ci";
+
 import { useLocation } from 'react-router-dom';
 
 
 const PageFormat = () => {
     const location = useLocation();
-    const { id, role } = location.state || { id: 'fff', role: 'fff'};
+    const { id, role } = location.state || { id: 'fff', role: 'pl' };
     console.log('Location state:', location.state);
-    const [isSdaExpanded, setIsSdaExpanded] = useState(false);
     const [currentComponent, setCurrentComponent] = useState('');
     const [activeButton, setActiveButton] = useState('');
     const [ModalisOpen, setModalIsOpen] = useState(false);
-
-
-
-    const toggleSdaArrow = () => {
-        setIsSdaExpanded(!isSdaExpanded);
-    };
 
     const handleButtonClick = (component: string, buttonId: string) => {
         setCurrentComponent(component);
@@ -43,8 +36,8 @@ const PageFormat = () => {
         switch (currentComponent) {
             case 'search':
                 return <PageSearch id={id} role={role} />;
-            case 'inbox':
-                return <span>inbox</span>;
+            case 'issueLog':
+                return <span>issueLog</span>;
             case 'myIssue':
                 return <PageMyIssue />;
             case 'roadMap':
@@ -53,8 +46,8 @@ const PageFormat = () => {
                 return <span>statistics</span>;
             case 'ranking':
                 return <span>ranking</span>;
-            case 'notify':
-                return <span>notify</span>;
+            case 'authorize':
+                return <span>authorize</span>;
             default:
                 return <PageDefault />;
         }
@@ -79,10 +72,10 @@ const PageFormat = () => {
                         <span>Search</span>
                     </div>
                 </button>
-                <button id={activeButton === 'inbox' ? 'active' : ' '} onClick={() => handleButtonClick('inbox', 'inbox')}>
+                <button id={activeButton === 'issueLog' ? 'active' : ' '} onClick={() => handleButtonClick('issueLog', 'issueLog')}>
                     <div className='buttonContent'>
                         <RiInbox2Fill />
-                        <span>Inbox</span>
+                        <span>Issue Log</span>
                     </div>
                 </button>
                 <button id={activeButton === 'myIssue' ? 'active' : ' '} onClick={() => handleButtonClick('myIssue', 'myIssue')}>
@@ -97,13 +90,6 @@ const PageFormat = () => {
                         <span>Road Map...</span>
                     </div>
                 </button>
-                <p id='yourTeam'>Your Team</p>
-                <button id={isSdaExpanded ? 'active' : ' '} onClick={toggleSdaArrow}>
-                    <div className='buttonContent'>
-                        <span id='arrow'>{isSdaExpanded ? <BiSolidDownArrow /> : <BiSolidUpArrow />}</span>
-                        <span>SDA</span>
-                    </div>
-                </button>
                 <button id={activeButton === 'statistics' ? 'active' : ' '} onClick={() => handleButtonClick('statistics', 'statistics')}>
                     <div className='buttonContent'>
                         <VscGraph />
@@ -116,21 +102,21 @@ const PageFormat = () => {
                         <span>Ranking</span>
                     </div>
                 </button>
-                <button id={activeButton === 'notify' ? 'active' : ' '} onClick={() => handleButtonClick('notify', 'notify')}>
+                <button id={activeButton === 'authorize' ? 'active' : ' '} onClick={() => handleButtonClick('authorize', 'authorize')}>
                     <div className='buttonContent'>
-                        <IoMdNotificationsOutline />
-                        <span>Notify</span>
+                        <CiLock />
+                        <span>Authorize</span>
                     </div>
                 </button>
             </div>
             <div className='main'>
                 {renderComponent()}
             </div>
-            <ModalPopup 
+            <ModalPopup
                 isOpen={ModalisOpen}
-                closeModal={() => setModalIsOpen(false)} 
+                closeModal={() => setModalIsOpen(false)}
                 userId={id}
-                userRole={role}/>
+                userRole={role} />
         </div>
     );
 };
