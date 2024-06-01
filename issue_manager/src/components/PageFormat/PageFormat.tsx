@@ -21,7 +21,7 @@ const PageFormat = () => {
     const location = useLocation();
     // const { id, role } = location.state;
     const [isSdaExpanded, setIsSdaExpanded] = useState(false);
-    const [activeButton, setActiveButton] = useState(' ');
+    const [activeButton, setActiveButton] = useState('');
     const [ModalisOpen, setModalIsOpen] = useState(false);
 
     const toggleSdaArrow = () => {
