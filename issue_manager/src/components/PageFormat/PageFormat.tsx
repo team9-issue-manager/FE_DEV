@@ -6,6 +6,7 @@ import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx';
 import AuthorizePage from '../AuthorizePage/AuthorizePage.tsx';
 import ModalPopup from '../Modal/Modal';
 import StatisticsPage from '../StatisticsPage/StatisticsPage.tsx';
+import CreatePage from '../CreateProject/CreateProject.tsx';
 import { VscGraph } from "react-icons/vsc";
 import { MdOutlineStars } from "react-icons/md";
 import { GoSearch } from "react-icons/go";
@@ -25,7 +26,7 @@ const PageFormat = () => {
     const [ModalisOpen, setModalIsOpen] = useState(false);
 
     const handleButtonClick = (component: string, buttonId: string) => {
-        if (component === 'authorize' && role !== 'admin') {
+        if ((component === 'authorize' || component === 'createProject') && role !== 'admin') {
             alert('You do not have permission to access this page.');
             return;
         }
@@ -48,7 +49,7 @@ const PageFormat = () => {
             case 'authorize':
                 return <AuthorizePage />;
             case 'createProject':
-                return <span>createProject</span>;
+                return <CreatePage />;
             default:
                 return <PageDefault />;
         }
@@ -97,18 +98,22 @@ const PageFormat = () => {
                         <span>Ranking</span>
                     </div>
                 </button>
-                <button id={activeButton === 'authorize' ? 'active' : ''} onClick={() => handleButtonClick('authorize', 'authorize')}>
+                {role === 'admin' &&
+                    <button id={activeButton === 'authorize' ? 'active' : ''} onClick={() => handleButtonClick('authorize', 'authorize')}>
                     <div className='buttonContent'>
                         <CiLock />
                         <span>Authorize</span>
                     </div>
                 </button>
-                <button id={activeButton === 'createProject' ? 'active' : ''} onClick={() => handleButtonClick('createProject', 'createProject')}>
-                    <div className='buttonContent'>
-                        <MdOutlineCreateNewFolder />
-                        <span>Create Project</span>
-                    </div>
-                </button>
+}
+                {role === 'admin' &&
+                    <button id={activeButton === 'createProject' ? 'active' : ''} onClick={() => handleButtonClick('createProject', 'createProject')}>
+                        <div className='buttonContent'>
+                            <MdOutlineCreateNewFolder />
+                            <span>Create Project</span>
+                        </div>
+                    </button>
+                }
             </div>
             <div className='main'>
                 {renderComponent()}
