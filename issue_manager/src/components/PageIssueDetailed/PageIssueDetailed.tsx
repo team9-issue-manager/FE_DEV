@@ -170,6 +170,18 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     };
     // assign dev auto - 테스트용
 
+    // direct assign dev - 테스트용
+    const handleDirectAssign = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            alert('Developer assigned successfully (test)');
+        } catch (error) {
+            console.error('Error assigning developer:', error);
+            alert('Error assigning developer');
+        }
+    }
+    // direct assign dev - 테스트용
+
     // change state - 서버용
     // const handleChangeState = async () => {
     //     const changeStateData = {
@@ -239,7 +251,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                         <div className='containerChangeState'>
                             <div>Assign Developer: </div>
                             <div className='containerAssignDev'>
-                                <form>
+                                <form className='containerDirectAssign' onSubmit={handleDirectAssign}>
                                     <input 
                                         type='text'
                                         placeholder='Enter Developer ID'

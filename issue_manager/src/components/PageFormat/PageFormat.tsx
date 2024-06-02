@@ -12,7 +12,7 @@ import { RiInbox2Fill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { VscIssues } from "react-icons/vsc";
 import { PiListPlusFill } from "react-icons/pi";
-import { CiMap } from "react-icons/ci";
+import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import { useLocation } from 'react-router-dom';
 
@@ -40,14 +40,14 @@ const PageFormat = () => {
                 return <span>issueLog</span>;
             case 'myIssue':
                 return <PageMyIssue />;
-            case 'roadMap':
-                return <span>roadMap</span>;
             case 'statistics':
                 return <span>statistics</span>;
             case 'ranking':
                 return <span>ranking</span>;
             case 'authorize':
                 return <AuthorizePage />;
+            case 'createProject':
+                return <span>createProject</span>;
             default:
                 return <PageDefault />;
         }
@@ -84,12 +84,6 @@ const PageFormat = () => {
                         <span>My Issue</span>
                     </div>
                 </button>
-                <button id={activeButton === 'roadMap' ? 'active' : ''} onClick={() => handleButtonClick('roadMap', 'roadMap')}>
-                    <div className='buttonContent'>
-                        <CiMap />
-                        <span>Road Map</span>
-                    </div>
-                </button>
                 <button id={activeButton === 'statistics' ? 'active' : ''} onClick={() => handleButtonClick('statistics', 'statistics')}>
                     <div className='buttonContent'>
                         <VscGraph />
@@ -106,6 +100,12 @@ const PageFormat = () => {
                     <div className='buttonContent'>
                         <CiLock />
                         <span>Authorize</span>
+                    </div>
+                </button>
+                <button id={activeButton === 'createProject' ? 'active' : ''} onClick={() => handleButtonClick('createProject', 'createProject')}>
+                    <div className='buttonContent'>
+                        <MdOutlineCreateNewFolder />
+                        <span>Create Project</span>
                     </div>
                 </button>
             </div>
