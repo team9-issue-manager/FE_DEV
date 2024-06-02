@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import './PageIssueDetailed.css';
 import { Issue } from '../ElementIssueList/ElementIssueList';
 import DisplayCommentList from '../DisplayCommentList/DisplayCommentList.tsx';
@@ -14,7 +14,7 @@ type PageIssueDetailedProps = {
 }
 
 const getStateString = (state: number): string => {
-    switch(state) {
+    switch (state) {
         case 0: return 'New';
         case 1: return 'Assigned';
         case 2: return 'Fixed';
@@ -30,105 +30,93 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     const [newComment, setNewComment] = useState<string>('');
 
     // comment 검색 - 서버용
-    // const fetchComments = useCallback(async () => {
-    //     try {
-    //         const response = await fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`);
-    //         const data = await response.json();
-    //         if (data.success) {
-    //             setComments(data.comments as Comment[]);
-    //         } else {
-    //             setComments([]);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching comments:', error);
-    //     }
-    // }, [issue.issueNum]);
+    // const fetchComments = () => {
+    //     fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 setComments(data.comments as Comment[]);
+    //             } else {
+    //                 setComments([]);
+    //             }
+    //         })
+    //         .catch(error => console.error('Error fetching comments:', error));
+    // }
     // comment 검색 - 서버용
 
     // comment 검색 - 테스트용
-    const fetchComments = useCallback(async () => {
-        try {
-            const localComments: Comment[] = [
-                {
-                    issueNum: issue.issueNum,
-                    content: 'Test comment 1',
-                    date: new Date().toISOString(),
-                    commentNum: 1,
-                    accountId: 'user1'
-                },
-                {
-                    issueNum: issue.issueNum,
-                    content: 'Test comment 2',
-                    date: new Date().toISOString(),
-                    commentNum: 2,
-                    accountId: 'user2'
-                }
-            ];
-            setComments(localComments);
-        } catch (error) {
-            console.error('Error fetching comments:', error);
-        }
-    }, [issue.issueNum]);
+    const fetchComments = () => {
+        const localComments: Comment[] = [
+            {
+                issueNum: issue.issueNum,
+                content: 'Test comment 1',
+                date: new Date().toISOString(),
+                commentNum: 1,
+                accountId: 'user1'
+            },
+            {
+                issueNum: issue.issueNum,
+                content: 'Test comment 2',
+                date: new Date().toISOString(),
+                commentNum: 2,
+                accountId: 'user2'
+            }
+        ];
+        setComments(localComments);
+    }
     // comment 검색 - 테스트용
 
-    useEffect(() => {
-        fetchComments();
-    }, [fetchComments]);
-
     const toggleComments = () => {
+        fetchComments();
         setShowComments(!showComments);
     };
 
     // comment 등록 - 서버용
-    // const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const newCommentData = {
-    //         issueNum: issue.issueNum,
-    //         content: newComment,
-    //         accountId: id
-    //     };
-
-    //     try {
-    //         const response = await fetch(`http://localhost:8080/issue/comments`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(newCommentData),
-    //         });
-
-    //         const data = await response.json();
-    //         if (data.success && data.comment) {
-    //             setComments(prevComments => [...prevComments, data.comment as Comment]);
-    //             setNewComment('');
-    //         } else {
-    //             console.error('Invalid comment data:', data);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error posting comment:', error);
-    //     }
-    // };
-    // comment 등록 - 서버용
-
-
-    // comment 등록 - 테스트용
     const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const newCommentData: Comment = {
+        const newCommentData = {
             issueNum: issue.issueNum,
             content: newComment,
-            date: new Date().toISOString(),
-            commentNum: comments.length + 1,  // 임시로 commentId를 설정합니다.
             accountId: id
         };
 
         try {
-            setComments(prevComments => [...prevComments, newCommentData]);
-            setNewComment('');
+            const response = await fetch(`http://localhost:8080/issue/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newCommentData),
+            });
+
+            const data = await response.json();
+            if (data.success && data.comment) {
+                setComments(prevComments => [...prevComments, data.comment as Comment]);
+                setNewComment('');
+            } else {
+                console.error('Invalid comment data:', data);
+            }
         } catch (error) {
             console.error('Error posting comment:', error);
         }
-    }
+    };
+    // comment 등록 - 서버용
+
+
+    // comment 등록 - 테스트용
+    // const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     const newCommentData: Comment = {
+    //         issueNum: issue.issueNum,
+    //         content: newComment,
+    //         date: new Date().toISOString(),
+    //         commentNum: comments.length + 1,  // 임시로 commentId를 설정합니다.
+    //         accountId: id
+    //     };
+
+    //     setComments(prevComments => [...prevComments, newCommentData]);
+    //     setNewComment('');
+    // }
     // comment 등록 - 테스트용
 
     // assign dev - 서버용
@@ -174,43 +162,43 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     // assign dev - 테스트용
 
     // change state - 서버용
-    // const handleChangeState = async () => {
-    //     const changeStateData = {
-    //         issueNum: issue.issueNum,
-    //         accountId: id
-    //     };
-
-    //     try {
-    //         const response = await fetch(`http://localhost:8080/issue/changeState`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(changeStateData),
-    //         });
-
-    //         const data = await response.json();
-    //         if (data.success as boolean) {
-    //             alert('Changed state successfully');
-    //         } else {
-    //             alert('Failed to change state');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error changing state:', error);
-    //         alert('Error changing state');
-    //     }
-    // };
-    // change state - 서버용
-
-    // change state - 테스트용
     const handleChangeState = async () => {
+        const changeStateData = {
+            issueNum: issue.issueNum,
+            accountId: id
+        };
+
         try {
-            alert('Changed state successfully (test)');
+            const response = await fetch(`http://localhost:8080/issue/changeState`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(changeStateData),
+            });
+
+            const data = await response.json();
+            if (data.success as boolean) {
+                alert('Changed state successfully');
+            } else {
+                alert('Failed to change state');
+            }
         } catch (error) {
             console.error('Error changing state:', error);
             alert('Error changing state');
         }
     };
+    // change state - 서버용
+
+    // change state - 테스트용
+    // const handleChangeState = async () => {
+    //     try {
+    //         alert('Changed state successfully (test)');
+    //     } catch (error) {
+    //         console.error('Error changing state:', error);
+    //         alert('Error changing state');
+    //     }
+    // };
     // change state - 테스트용
 
     return (
