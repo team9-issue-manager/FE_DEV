@@ -5,6 +5,7 @@ import PageSearch from '../PageSearch/PageSearch.tsx';
 import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx';
 import AuthorizePage from '../AuthorizePage/AuthorizePage.tsx';
 import ModalPopup from '../Modal/Modal';
+import StatisticsPage from '../StatisticsPage/StatisticsPage.tsx';
 import { VscGraph } from "react-icons/vsc";
 import { MdOutlineStars } from "react-icons/md";
 import { GoSearch } from "react-icons/go";
@@ -41,7 +42,7 @@ const PageFormat = () => {
             case 'myIssue':
                 return <PageMyIssue />;
             case 'statistics':
-                return <span>statistics</span>;
+                return <span><StatisticsPage /></span>;
             case 'ranking':
                 return <span>ranking</span>;
             case 'authorize':
