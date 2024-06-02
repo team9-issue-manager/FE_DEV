@@ -6,7 +6,7 @@ interface ModalPopupProps {
     isOpen: boolean;
     closeModal: () => void;
     userId: string;
-    userRole: string; // 프로젝트 번호를 props로 받습니다.
+    userRole: string;
 }
 
 interface Project {
@@ -14,16 +14,16 @@ interface Project {
     title: string;
 }
 
-const ModalPopup: React.FC<ModalPopupProps> = ({ isOpen, closeModal, userId}) => {
+const ModalPopup: React.FC<ModalPopupProps> = ({ isOpen, closeModal, userId }) => {
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
     const [tag, setTag] = useState<string>('');
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [projects, setProjects] = useState<Project[]>([]);
-    const [message, setMessage] = useState<string | null>(null); // 서버 응답 메시지를 저장
+    const [message, setMessage] = useState<string | null>(null);
+    const [priority, setPriority] = useState<number>(3); // 기본 우선순위를 Major(3)로 설정
 
     useEffect(() => {
-        // 프로젝트 목록을 받아옴
         fetch('http://localhost:8080/project/list')
             .then(response => response.json())
             .then(data => setProjects(data.projects))
@@ -33,9 +33,11 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ isOpen, closeModal, userId}) =>
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     };
+
     const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
+
     const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTag(e.target.value);
     };
@@ -46,10 +48,13 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ isOpen, closeModal, userId}) =>
         setSelectedProject(project || null);
     };
 
+    const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setPriority(parseInt(e.target.value, 10));
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // 선택한 프로젝트 번호를 확인하고 서버로 전송
         if (selectedProject) {
             fetch('http://localhost:8080/issue/add', {
                 method: 'POST',
@@ -60,8 +65,9 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ isOpen, closeModal, userId}) =>
                     title,
                     content,
                     accountId: userId,
-                    projectNum: selectedProject.projectNum, // 선택한 프로젝트의 번호 사용
+                    projectNum: selectedProject.projectNum,
                     tag,
+                    priority,
                 }),
             })
                 .then(response => response.json())
@@ -103,6 +109,15 @@ const ModalPopup: React.FC<ModalPopupProps> = ({ isOpen, closeModal, userId}) =>
                         {projects.map(project => (
                             <option key={project.projectNum} value={project.projectNum}>{project.title}</option>
                         ))}
+                    </select>
+                </div>
+                <div className="form-group">
+                    <select value={priority} onChange={handlePriorityChange}>
+                        <option value={1}>Blocker</option>
+                        <option value={2}>Critical</option>
+                        <option value={3}>Major</option>
+                        <option value={4}>Minor</option>
+                        <option value={5}>Trivial</option>
                     </select>
                 </div>
                 <div className="form-group">
