@@ -41,14 +41,35 @@ const StatisticsPage: React.FC = () => {
     const chartOptions = (categories: string[]): ApexOptions => ({
         chart: {
             type: 'bar',
+            toolbar: {
+                show: true
+            }
         },
         xaxis: {
             categories,
         },
         yaxis: {
-            tickAmount: 5, // 이 값을 원하는 눈금 수에 맞게 조정
+            tickAmount: 5,
             labels: {
                 formatter: (value) => Math.floor(value).toString()
+            }
+        },
+        colors: ['#F4F1EB'],
+        plotOptions: {
+            bar: {
+                borderRadius: 4,
+                horizontal: false,
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        title: {
+            text: 'Issue Statistics',
+            align: 'center',
+            style: {
+                fontSize: '20px',
+                color: '#333'
             }
         }
     });
