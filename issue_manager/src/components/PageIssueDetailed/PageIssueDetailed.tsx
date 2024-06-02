@@ -39,6 +39,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     const [showComments, setShowComments] = useState<boolean>(false);
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState<string>('');
+    const [devId, setDevId] = useState<string>('');
 
     // comment 검색 - 서버용
     // const fetchComments = () => {
@@ -170,16 +171,61 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     };
     // assign dev auto - 테스트용
 
+    // direct dev auto - 서버용
+    // const handleDirectAssign = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     const directAssignData = {
+    //         accountid: id,
+    //         issueNum: issue.issueNum,
+    //         devId: devId,
+    //     };
+
+    //     try {
+    //         const response = await fetch(`http://localhost:8080/issue/assignDev`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(directAssignData),
+    //         });
+
+    //         const data = await response.json();
+    //         if (data.success) {
+    //             alert('Developer assigned successfully');
+    //         } else {
+    //             alert('Failed to assign developer');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error assigning developer:', error);
+    //         alert('Error assigning developer');
+    //     }
+    // };
+    // direct assign dev - 서버용
+
     // direct assign dev - 테스트용
     const handleDirectAssign = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const directAssignData = {
+            accountid: id,
+            issueNum: issue.issueNum,
+            devId: devId,
+        };
+    
         try {
-            alert('Developer assigned successfully (test)');
+            console.log('Assigning Developer with data:', directAssignData);
+            // Simulate successful response
+            const data = { success: true };
+    
+            if (data.success) {
+                alert('Developer assigned successfully (test)');
+            } else {
+                alert('Failed to assign developer (test)');
+            }
         } catch (error) {
-            console.error('Error assigning developer:', error);
-            alert('Error assigning developer');
+            console.error('Error assigning developer (test):', error);
+            alert('Error assigning developer (test)');
         }
-    }
+    };
     // direct assign dev - 테스트용
 
     // change state - 서버용
@@ -255,7 +301,9 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                                     <input 
                                         type='text'
                                         placeholder='Enter Developer ID'
-                                        name='devId' />
+                                        name='devId' 
+                                        value={devId}
+                                        onChange={(e) => setDevId(e.target.value)}/>
                                     <button type='submit'>Assign</button>
                                 </form>
                                 <span>OR</span>
