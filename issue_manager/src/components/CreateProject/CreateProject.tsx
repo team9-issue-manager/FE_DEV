@@ -1,37 +1,16 @@
-import React, { useState, useEffect } from 'react';
-
-interface User {
-    id: string;
-    role: string;
-}
+import React, { useState } from 'react';
+import './CreateProject.css'
 
 const CreateProject: React.FC = () => {
     const [title, setTitle] = useState<string>('');
     const [plId, setPlId] = useState<string>('');
-    const [plList, setPlList] = useState<User[]>([]);
     const [message, setMessage] = useState<string | null>(null);
-
-    useEffect(() => {
-        fetch('http://localhost:8080/user/findByRole/pl')
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    setPlList(data.accounts);
-                } else {
-                    setMessage('PL을 가져오는 데 실패했습니다.');
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching PL users:', error);
-                setMessage('서버 오류 발생');
-            });
-    }, []);
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     };
 
-    const handlePlChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handlePlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPlId(e.target.value);
     };
 
@@ -78,12 +57,13 @@ const CreateProject: React.FC = () => {
                 </div>
                 <div>
                     <label htmlFor="plId">Assign PL:</label>
-                    <select id="plId" value={plId} onChange={handlePlChange} required>
-                        <option value="">Select PL</option>
-                        {plList.map(pl => (
-                            <option key={pl.id} value={pl.id}>{pl.id}</option>
-                        ))}
-                    </select>
+                    <input 
+                        type="text" 
+                        id="plId" 
+                        value={plId} 
+                        onChange={handlePlChange} 
+                        required 
+                    />
                 </div>
                 {message && <div className="message">{message}</div>}
                 <button type="submit">Create Project</button>
