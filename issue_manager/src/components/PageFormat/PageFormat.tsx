@@ -2,17 +2,13 @@ import { useState } from 'react';
 import './PageFormat.css';
 import PageDefault from '../PageDefault/PageDefault.tsx';
 import PageSearch from '../PageSearch/PageSearch.tsx';
-import PageMyIssue from '../PageMyIssue/PageMyIssue.tsx';
 import AuthorizePage from '../AuthorizePage/AuthorizePage.tsx';
 import ModalPopup from '../Modal/Modal';
 import StatisticsPage from '../StatisticsPage/StatisticsPage.tsx';
 import CreatePage from '../CreateProject/CreateProject.tsx';
 import { VscGraph } from "react-icons/vsc";
-import { MdOutlineStars } from "react-icons/md";
 import { GoSearch } from "react-icons/go";
-import { RiInbox2Fill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
-import { VscIssues } from "react-icons/vsc";
 import { PiListPlusFill } from "react-icons/pi";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
@@ -38,14 +34,8 @@ const PageFormat = () => {
         switch (currentComponent) {
             case 'search':
                 return <PageSearch id={id} role={role} />;
-            case 'issueLog':
-                return <span>issueLog</span>;
-            case 'myIssue':
-                return <PageMyIssue />;
             case 'statistics':
                 return <span><StatisticsPage /></span>;
-            case 'ranking':
-                return <span>ranking</span>;
             case 'authorize':
                 return <AuthorizePage />;
             case 'createProject':
@@ -74,28 +64,10 @@ const PageFormat = () => {
                         <span>Search</span>
                     </div>
                 </button>
-                <button id={activeButton === 'issueLog' ? 'active' : ''} onClick={() => handleButtonClick('issueLog', 'issueLog')}>
-                    <div className='buttonContent'>
-                        <RiInbox2Fill />
-                        <span>Issue Log</span>
-                    </div>
-                </button>
-                <button id={activeButton === 'myIssue' ? 'active' : ''} onClick={() => handleButtonClick('myIssue', 'myIssue')}>
-                    <div className='buttonContent'>
-                        <VscIssues />
-                        <span>My Issue</span>
-                    </div>
-                </button>
                 <button id={activeButton === 'statistics' ? 'active' : ''} onClick={() => handleButtonClick('statistics', 'statistics')}>
                     <div className='buttonContent'>
                         <VscGraph />
                         <span>Statistics</span>
-                    </div>
-                </button>
-                <button id={activeButton === 'ranking' ? 'active' : ''} onClick={() => handleButtonClick('ranking', 'ranking')}>
-                    <div className='buttonContent'>
-                        <MdOutlineStars />
-                        <span>Ranking</span>
                     </div>
                 </button>
                 {role === 'admin' &&
