@@ -4,7 +4,6 @@ import DisplayIssueList from '../DisplayIssueList/DisplayIssueList.tsx'
 import PageIssueDetailed from '../PageIssueDetailed/PageIssueDetailed';
 import { Issue } from '../ElementIssueList/ElementIssueList.tsx'
 import { GoSearch } from "react-icons/go";
-import { IoFilter } from "react-icons/io5";
 
 type PageSearchProps = {
     id: string;
@@ -14,6 +13,11 @@ type PageSearchProps = {
 const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
     const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
     const [issues, setIssues] = useState<Issue[]>([]);
+    const [filter, setFilter] = useState('priority');
+
+    const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFilter(e.target.value);
+    }
 
     const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -30,7 +34,7 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
     //         headers: {
     //             'Content-Type': 'application/json',
     //         },
-    //         body: JSON.stringify({ filter: "title", value: searchQuery }),
+    //         body: JSON.stringify({ filter: {filter}, value: searchQuery }),
     //     })
     //         .then(response => response.json())
     //         .then(data => {
@@ -57,7 +61,7 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
                 "devId": null,
                 "projectNum": 1,
                 "tag": null,
-                "priority": 1, 
+                "priority": 1,
             },
             {
                 "issueNum": 2,
@@ -83,7 +87,7 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
                 "tag": null,
                 "priority": 3,
             }
-        ];  
+        ];
         setIssues(testIssues);
     };
     // issue 검색 - 테스트용
@@ -168,6 +172,69 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
                                 Browse All
                             </button>
                             <form className='containerSearchBox' onSubmit={handleSearchSubmit}>
+                                <div className='radioGroup'>
+                                    <span className='searchBy'>Search By: </span>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='filter'
+                                            value='priority'
+                                            checked={filter === 'priority'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        Priority
+                                    </label>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='filter'
+                                            value='state'
+                                            checked={filter === 'state'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        State
+                                    </label>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='filter'
+                                            value='title'
+                                            checked={filter === 'title'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        Title
+                                    </label>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='filter'
+                                            value='accountId'
+                                            checked={filter === 'accountId'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        Reporter
+                                    </label>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='filter'
+                                            value='devId'
+                                            checked={filter === 'devId'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        Dev ID
+                                    </label>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='filter'
+                                            value='tag'
+                                            checked={filter === 'tag'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        Tag
+                                    </label>
+                                </div>
                                 <div className='searchBox'>
                                     <GoSearch />
                                     <input
@@ -177,10 +244,6 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
                                 </div>
                             </form>
                         </div>
-                        <button className='filterButton'>
-                            <IoFilter />
-                            <span className='buttonLabel'>Filter</span>
-                        </button>
                         <div className='containerElementIssueList'>
                             <span className='priority'>Priority</span>
                             <span className='state'>State</span>

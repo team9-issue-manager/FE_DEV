@@ -130,7 +130,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     }
     // comment 등록 - 테스트용
 
-    // assign dev - 서버용
+    // assign dev auto - 서버용
     // const handleAssignDev = async () => {
     //     const assignDevData = {
     //         accountid: id,
@@ -157,9 +157,9 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     //         alert('Error assigning developer');
     //     }
     // };
-    // assign dev - 서버용
+    // assign dev auto - 서버용
 
-    // assign dev - 테스트용
+    // assign dev auto - 테스트용
     const handleAssignDev = async () => {
         try {
             alert('Developer assigned successfully (test)');
@@ -168,7 +168,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
             alert('Error assigning developer');
         }
     };
-    // assign dev - 테스트용
+    // assign dev auto - 테스트용
 
     // change state - 서버용
     // const handleChangeState = async () => {
@@ -236,9 +236,19 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                     <div className='divider'></div>
                     <div className='activity'>Activity</div>
                     {(role === 'pl' && issue.state === 0) ? (
-                        <div className='containerAssignDev'>
+                        <div className='containerChangeState'>
                             <div>Assign Developer: </div>
-                            <button className='assignDevButton' onClick={handleAssignDev}>Assign Developer</button>
+                            <div className='containerAssignDev'>
+                                <form>
+                                    <input 
+                                        type='text'
+                                        placeholder='Enter Developer ID'
+                                        name='devId' />
+                                    <button type='submit'>Assign</button>
+                                </form>
+                                <span>OR</span>
+                                <button onClick={handleAssignDev}>Auto Assign</button>
+                            </div>
                         </div>
                     ) : (
                         issue.state !== 4 ? (
@@ -257,7 +267,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                     <form className='commentBox' onSubmit={handleCommentSubmit}>
                         <input
                             type='text'
-                            placeholder='Enter Comment...'
+                            placeholder='Enter Comment'
                             name='comment'
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}

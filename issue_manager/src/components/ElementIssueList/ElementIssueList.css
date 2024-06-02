@@ -36,10 +36,11 @@
 }
 
 .userId {
+    margin-left: auto;
     width: 90px;
 }
 
 .date {
+    font-size: 15px;
     width: 270px;
-    margin-left: auto;
 }

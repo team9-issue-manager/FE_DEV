@@ -18,10 +18,30 @@
     gap: 10px;
 }
 
-.containerAssignDev, .containerChangeState {
-    gap: 20px;
+.containerChangeState {
+    gap: 10px;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
+}
+
+.containerAssignDev {
+    gap: 10px;
+    display: flex;
+    align-items: center; 
+}
+
+.containerAssignDev input {
+    background: #F4F1EB;
+    width: 200px;
+    box-sizing: border-box;
+    height: 40px;
+    flex-shrink: 0;
+    font-size: 15px;
+    padding: 15px;
+    border: transparent;
+    border-radius: 8px;
+    color: #828282; 
 }
 
 .containerAssignDev button, .containerChangeState button{
