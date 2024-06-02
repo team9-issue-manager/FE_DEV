@@ -34,7 +34,7 @@ const PageSearch: React.FC<PageSearchProps> = ({ id, role }) => {
     //         headers: {
     //             'Content-Type': 'application/json',
     //         },
-    //         body: JSON.stringify({ filter: {filter}, value: searchQuery }),
+    //         body: JSON.stringify({ filter: filter, value: searchQuery }),
     //     })
     //         .then(response => response.json())
     //         .then(data => {
