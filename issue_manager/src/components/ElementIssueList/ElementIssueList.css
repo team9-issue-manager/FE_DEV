@@ -19,20 +19,24 @@
     box-sizing: border-box;
 }
 
-.projectTitle {
-    width: 60px;
-}
-
-.userId {
-    width: 90px;
+.priority {
+    width: 80px;
 }
 
 .state {
     width: 80px;
 }
 
+.project {
+    width: 60px;
+}
+
 .title {
     width: 300px;
+}
+
+.userId {
+    width: 90px;
 }
 
 .date {

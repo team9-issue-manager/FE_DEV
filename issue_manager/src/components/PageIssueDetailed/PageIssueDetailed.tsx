@@ -24,6 +24,17 @@ const getStateString = (state: number): string => {
     }
 }
 
+const getPriorityString = (priority: number): string => {
+    switch (priority) {
+        case 1: return 'Blocker';
+        case 2: return 'Critical';
+        case 3: return 'Major';
+        case 4: return 'Minor';
+        case 5: return 'Trivial';
+        default: return 'Major';
+    }
+}
+
 const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id, role }) => {
     const [showComments, setShowComments] = useState<boolean>(false);
     const [comments, setComments] = useState<Comment[]>([]);
@@ -35,7 +46,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     //         .then(response => response.json())
     //         .then(data => {
     //             if (data.success) {
-    //                 setComments(data.comments as Comment[]);
+    //                 setComments(data.comment as Comment[]);
     //             } else {
     //                 setComments([]);
     //             }
@@ -72,51 +83,51 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     };
 
     // comment 등록 - 서버용
-    const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const newCommentData = {
-            issueNum: issue.issueNum,
-            content: newComment,
-            accountId: id
-        };
+    // const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     const newCommentData = {
+    //         issueNum: issue.issueNum,
+    //         content: newComment,
+    //         accountId: id
+    //     };
 
-        try {
-            const response = await fetch(`http://localhost:8080/issue/comments`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newCommentData),
-            });
+    //     try {
+    //         const response = await fetch(`http://localhost:8080/issue/comments`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(newCommentData),
+    //         });
 
-            const data = await response.json();
-            if (data.success && data.comment) {
-                setComments(prevComments => [...prevComments, data.comment as Comment]);
-                setNewComment('');
-            } else {
-                console.error('Invalid comment data:', data);
-            }
-        } catch (error) {
-            console.error('Error posting comment:', error);
-        }
-    };
+    //         const data = await response.json();
+    //         if (data.success && data.comment) {
+    //             setComments(prevComments => [...prevComments, data.comment as Comment]);
+    //             setNewComment('');
+    //         } else {
+    //             console.error('Invalid comment data:', data);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error posting comment:', error);
+    //     }
+    // };
     // comment 등록 - 서버용
 
 
     // comment 등록 - 테스트용
-    // const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const newCommentData: Comment = {
-    //         issueNum: issue.issueNum,
-    //         content: newComment,
-    //         date: new Date().toISOString(),
-    //         commentNum: comments.length + 1,  // 임시로 commentId를 설정합니다.
-    //         accountId: id
-    //     };
+    const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const newCommentData: Comment = {
+            issueNum: issue.issueNum,
+            content: newComment,
+            date: new Date().toISOString(),
+            commentNum: comments.length + 1,  // 임시로 commentId를 설정합니다.
+            accountId: id
+        };
 
-    //     setComments(prevComments => [...prevComments, newCommentData]);
-    //     setNewComment('');
-    // }
+        setComments(prevComments => [...prevComments, newCommentData]);
+        setNewComment('');
+    }
     // comment 등록 - 테스트용
 
     // assign dev - 서버용
@@ -141,8 +152,6 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     //         } else {
     //             alert('Failed to assign developer');
     //         }
-
-    //         alert('Developer assigned successfully (test)');
     //     } catch (error) {
     //         console.error('Error assigning developer:', error);
     //         alert('Error assigning developer');
@@ -162,43 +171,43 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     // assign dev - 테스트용
 
     // change state - 서버용
-    const handleChangeState = async () => {
-        const changeStateData = {
-            issueNum: issue.issueNum,
-            accountId: id
-        };
-
-        try {
-            const response = await fetch(`http://localhost:8080/issue/changeState`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(changeStateData),
-            });
-
-            const data = await response.json();
-            if (data.success as boolean) {
-                alert('Changed state successfully');
-            } else {
-                alert('Failed to change state');
-            }
-        } catch (error) {
-            console.error('Error changing state:', error);
-            alert('Error changing state');
-        }
-    };
-    // change state - 서버용
-
-    // change state - 테스트용
     // const handleChangeState = async () => {
+    //     const changeStateData = {
+    //         issueNum: issue.issueNum,
+    //         accountId: id
+    //     };
+
     //     try {
-    //         alert('Changed state successfully (test)');
+    //         const response = await fetch(`http://localhost:8080/issue/changeState`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(changeStateData),
+    //         });
+
+    //         const data = await response.json();
+    //         if (data.success as boolean) {
+    //             alert('Changed state successfully');
+    //         } else {
+    //             alert('Failed to change state');
+    //         }
     //     } catch (error) {
     //         console.error('Error changing state:', error);
     //         alert('Error changing state');
     //     }
     // };
+    // change state - 서버용
+
+    // change state - 테스트용
+    const handleChangeState = async () => {
+        try {
+            alert('Changed state successfully (test)');
+        } catch (error) {
+            console.error('Error changing state:', error);
+            alert('Error changing state');
+        }
+    };
     // change state - 테스트용
 
     return (
@@ -215,6 +224,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                     <div className='divider'></div>
                     <div className="issueTitle">Issue Title: {issue.title}</div>
                     <div>Project: {issue.projectNum}</div>
+                    <div>Priority: {getPriorityString(issue.priority)}</div>
                     <div>Reporter: {issue.accountId}</div>
                     <div>Reported Date: {issue.date}</div>
                     <div>Assignee/Fixer: {issue.devId ? issue.devId : 'N/A'} </div>
@@ -225,22 +235,23 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
                     </div>
                     <div className='divider'></div>
                     <div className='activity'>Activity</div>
-                    {role === 'pl' && issue.state === 0 && (
+                    {(role === 'pl' && issue.state === 0) ? (
                         <div className='containerAssignDev'>
                             <div>Assign Developer: </div>
                             <button className='assignDevButton' onClick={handleAssignDev}>Assign Developer</button>
                         </div>
-                    )}
-                    {issue.state !== 4 ? (
-                        <div className='containerChangeState'>
-                            <div>Change State: </div>
-                            <button className='changeState' onClick={handleChangeState}>Change to {getStateString(issue.state + 1)}</button>
-                        </div>
                     ) : (
-                        <div className='containerChangeState'>
-                            <div>Reopen State: </div>
-                            <button className='changeState' onClick={handleChangeState}>Reopen Issue</button>
-                        </div>
+                        issue.state !== 4 ? (
+                            <div className='containerChangeState'>
+                                <div>Change State: </div>
+                                <button className='changeState' onClick={handleChangeState}>Change to {getStateString(issue.state + 1)}</button>
+                            </div>
+                        ) : (
+                            <div className='containerChangeState'>
+                                <div>Reopen State: </div>
+                                <button className='changeState' onClick={handleChangeState}>Reopen Issue</button>
+                            </div>
+                        )
                     )}
                     <div>Add Comment: </div>
                     <form className='commentBox' onSubmit={handleCommentSubmit}>

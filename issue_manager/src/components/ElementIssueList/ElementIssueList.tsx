@@ -11,6 +11,7 @@ export type Issue = {
     devId: string | null;
     projectNum: number;
     tag: string[] | null;
+    priority: number;
 }
 
 type ElementIssueListProps = {
@@ -30,14 +31,26 @@ const getStateString = (state: number): string => {
     }
 }
 
+const getPriorityString = (priority: number) : string => {
+    switch(priority) {
+        case 1: return 'Blocker';
+        case 2: return 'Critical';
+        case 3: return 'Major';
+        case 4: return 'Minor';
+        case 5: return 'Trivial';
+        default: return 'Major';
+    }
+}
+
 const ElementIssueList: React.FC<ElementIssueListProps> = ({ issue, onIssueClick }) => {
     return (
         <div>
             <button className='containerElementIssueList' onClick={() => onIssueClick(issue)}>
-                <span className='projectTitle'>{issue.projectNum}</span>
-                <span className='userId'>{issue.accountId}</span>
+                <span className='priority'>{getPriorityString(issue.priority)}</span>
                 <span className='state'>{getStateString(issue.state)}</span>
+                <span className='project'>{issue.projectNum}</span>
                 <span className='title'>{issue.title}</span>
+                <span className='userId'>{issue.accountId}</span>
                 <span className='date'>{issue.date}</span>
             </button>
             <div className='line'></div>
