@@ -42,41 +42,18 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     const [devId, setDevId] = useState<string>('');
 
     // comment 검색 - 서버용
-    // const fetchComments = () => {
-    //     fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 setComments(data.comment as Comment[]);
-    //             } else {
-    //                 setComments([]);
-    //             }
-    //         })
-    //         .catch(error => console.error('Error fetching comments:', error));
-    // }
-    // comment 검색 - 서버용
-
-    // comment 검색 - 테스트용
     const fetchComments = () => {
-        const localComments: Comment[] = [
-            {
-                issueNum: issue.issueNum,
-                content: 'Test comment 1',
-                date: new Date().toISOString(),
-                commentNum: 1,
-                accountId: 'user1'
-            },
-            {
-                issueNum: issue.issueNum,
-                content: 'Test comment 2',
-                date: new Date().toISOString(),
-                commentNum: 2,
-                accountId: 'user2'
-            }
-        ];
-        setComments(localComments);
+        fetch(`http://localhost:8080/issue/${issue.issueNum}/comments`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    setComments(data.comment as Comment[]);
+                } else {
+                    setComments([]);
+                }
+            })
+            .catch(error => console.error('Error fetching comments:', error));
     }
-    // comment 검색 - 테스트용
 
     const toggleComments = () => {
         fetchComments();
@@ -84,125 +61,65 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     };
 
     // comment 등록 - 서버용
-    // const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const newCommentData = {
-    //         issueNum: issue.issueNum,
-    //         content: newComment,
-    //         accountId: id
-    //     };
-
-    //     try {
-    //         const response = await fetch(`http://localhost:8080/issue/comments`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(newCommentData),
-    //         });
-
-    //         const data = await response.json();
-    //         if (data.success && data.comment) {
-    //             setComments(prevComments => [...prevComments, data.comment as Comment]);
-    //             setNewComment('');
-    //         } else {
-    //             console.error('Invalid comment data:', data);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error posting comment:', error);
-    //     }
-    // };
-    // comment 등록 - 서버용
-
-
-    // comment 등록 - 테스트용
     const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const newCommentData: Comment = {
+        const newCommentData = {
             issueNum: issue.issueNum,
             content: newComment,
-            date: new Date().toISOString(),
-            commentNum: comments.length + 1,  // 임시로 commentId를 설정합니다.
             accountId: id
         };
 
-        setComments(prevComments => [...prevComments, newCommentData]);
-        setNewComment('');
-    }
-    // comment 등록 - 테스트용
-
-    // assign dev auto - 서버용
-    // const handleAssignDev = async () => {
-    //     const assignDevData = {
-    //         accountid: id,
-    //         issueNum: issue.issueNum,
-    //     };
-
-    //     try {
-    //         const response = await fetch(`http://localhost:8080/issue/assignDevAuto`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(assignDevData),
-    //         });
-
-    //         const data = await response.json();
-    //         if (data.success as boolean) {
-    //             alert('Developer assigned successfully');
-    //         } else {
-    //             alert('Failed to assign developer');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error assigning developer:', error);
-    //         alert('Error assigning developer');
-    //     }
-    // };
-    // assign dev auto - 서버용
-
-    // assign dev auto - 테스트용
-    const handleAssignDev = async () => {
         try {
-            alert('Developer assigned successfully (test)');
+            const response = await fetch(`http://localhost:8080/issue/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newCommentData),
+            });
+
+            const data = await response.json();
+            if (data.success && data.comment) {
+                setComments(prevComments => [...prevComments, data.comment as Comment]);
+                setNewComment('');
+            } else {
+                console.error('Invalid comment data:', data);
+            }
+        } catch (error) {
+            console.error('Error posting comment:', error);
+        }
+    };
+
+    // assign dev auto - 서버용
+    const handleAssignDev = async () => {
+        const assignDevData = {
+            accountid: id,
+            issueNum: issue.issueNum,
+        };
+
+        try {
+            const response = await fetch(`http://localhost:8080/issue/assignDevAuto`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(assignDevData),
+            });
+
+            const data = await response.json();
+            if (data.success as boolean) {
+                alert('Developer assigned successfully');
+            } else {
+                alert('Failed to assign developer');
+            }
         } catch (error) {
             console.error('Error assigning developer:', error);
             alert('Error assigning developer');
         }
     };
-    // assign dev auto - 테스트용
+
 
     // direct dev auto - 서버용
-    // const handleDirectAssign = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const directAssignData = {
-    //         accountid: id,
-    //         issueNum: issue.issueNum,
-    //         devId: devId,
-    //     };
-
-    //     try {
-    //         const response = await fetch(`http://localhost:8080/issue/assignDev`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(directAssignData),
-    //         });
-
-    //         const data = await response.json();
-    //         if (data.success) {
-    //             alert('Developer assigned successfully');
-    //         } else {
-    //             alert('Failed to assign developer');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error assigning developer:', error);
-    //         alert('Error assigning developer');
-    //     }
-    // };
-    // direct assign dev - 서버용
-
-    // direct assign dev - 테스트용
     const handleDirectAssign = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const directAssignData = {
@@ -210,63 +127,55 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
             issueNum: issue.issueNum,
             devId: devId,
         };
-    
+
         try {
-            console.log('Assigning Developer with data:', directAssignData);
-            // Simulate successful response
-            const data = { success: true };
-    
+            const response = await fetch(`http://localhost:8080/issue/assignDev`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(directAssignData),
+            });
+
+            const data = await response.json();
             if (data.success) {
-                alert('Developer assigned successfully (test)');
+                alert('Developer assigned successfully');
             } else {
-                alert('Failed to assign developer (test)');
+                alert('Failed to assign developer');
             }
         } catch (error) {
-            console.error('Error assigning developer (test):', error);
-            alert('Error assigning developer (test)');
+            console.error('Error assigning developer:', error);
+            alert('Error assigning developer');
         }
     };
-    // direct assign dev - 테스트용
 
     // change state - 서버용
-    // const handleChangeState = async () => {
-    //     const changeStateData = {
-    //         issueNum: issue.issueNum,
-    //         accountId: id
-    //     };
-
-    //     try {
-    //         const response = await fetch(`http://localhost:8080/issue/changeState`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(changeStateData),
-    //         });
-
-    //         const data = await response.json();
-    //         if (data.success as boolean) {
-    //             alert('Changed state successfully');
-    //         } else {
-    //             alert('Failed to change state');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error changing state:', error);
-    //         alert('Error changing state');
-    //     }
-    // };
-    // change state - 서버용
-
-    // change state - 테스트용
     const handleChangeState = async () => {
+        const changeStateData = {
+            issueNum: issue.issueNum,
+            accountId: id
+        };
+
         try {
-            alert('Changed state successfully (test)');
+            const response = await fetch(`http://localhost:8080/issue/changeState`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(changeStateData),
+            });
+
+            const data = await response.json();
+            if (data.success as boolean) {
+                alert('Changed state successfully');
+            } else {
+                alert('Failed to change state');
+            }
         } catch (error) {
             console.error('Error changing state:', error);
             alert('Error changing state');
         }
     };
-    // change state - 테스트용
 
     return (
         <div>
