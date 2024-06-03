@@ -93,7 +93,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     // assign dev auto - 서버용
     const handleAssignDev = async () => {
         const assignDevData = {
-            accountid: id,
+            accountId: id,
             issueNum: issue.issueNum,
         };
 
@@ -123,7 +123,7 @@ const PageIssueDetailed: React.FC<PageIssueDetailedProps> = ({ issue, onBack, id
     const handleDirectAssign = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const directAssignData = {
-            accountid: id,
+            accountId: id,
             issueNum: issue.issueNum,
             devId: devId,
         };
